@@ -2,9 +2,10 @@
 
 <html>
 <head>
-    <title>Code Plateau</title>
+    <title>Code Plateau | Learn, Practice, Excel</title>
     <link rel="stylesheet" media="(min-width: 1000px)" href="css/desktopstyles.css" />
     <link rel="stylesheet" media="(max-width: 999px)" href="css/mobileview.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/modernizr.custom.js"></script>
     <link rel="shortcut icon" href="images/favicon.ico">
 </head>
@@ -16,20 +17,29 @@
             <div id="desktop-nav">
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Code</a></li>
+                <li><a href="#">Learn</a></li>
                 <li><a href="#">Exercises</a></li>
                 <li><a href="#">About Us</a></li>
             </ul>
         </div>
         </div>
-        
+        <div id="header"></div>
+        <div class="main">
+				
+        </div>
+        <div id="footer">
+            <div id="footer-content">
+                Code Plateau<br/>
+                Dunwoody College of Technology
+            </div>
+        </div> 
     </div>
 <!-- MOBILE VIEW STARTS HERE -->
     <div class="mobile-view">
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
             <h3>Welcome!</h3>
             <a href="#">Home</a>
-            <a href="#">Code</a>
+            <a href="#">Learn</a>
             <a href="#">Exercises</a>
             <a href="#">About Us</a>
 	</nav>
@@ -46,6 +56,8 @@
 			</div>
 			    <div id="footer">
 				<div id="footer-content">
+                                    Code Plateau<br/>
+                                    Dunwoody College of Technology
 				</div>
 			    </div>
 		</div>

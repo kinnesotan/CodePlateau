@@ -2,7 +2,10 @@
     display: none !important;
 }
 body, html { font-size: 100%; 	font-family: sans-serif; padding: 0; margin: 0;}
-
+body {
+    background-color: #4d4d4d;
+    color: #fff;
+}
 /* Reset */
 *,
 *:after,
@@ -98,7 +101,7 @@ a:hover {
 }
 
 .container > header nav a:hover {
-	background: #771929;
+	background: #262626;
 }
 
 .main > section {
@@ -114,7 +117,7 @@ a:hover {
 
 .main > section button {
 	border: none;
-	background: #A31929;
+	background: #333333;
 	color: #fff;
 	padding: 1.5em;
 	display: block;
@@ -126,7 +129,7 @@ a:hover {
 #top-bar {
 	width: 100%;
 	height: 50px;
-	background-color: #A31929;
+	background-color: #333333;
 }
 #shownav {
 	width: 40px;
@@ -147,7 +150,7 @@ a:hover {
 }
 #logo {
     width: 15%;
-    margin: -35px auto 0 auto;
+    margin: -35px auto 0 37%;
 }
 /* END HEADER IMAGE AND TEXT */
 
@@ -159,7 +162,7 @@ a:hover {
 #headline {
     margin: 0 auto;
     color: white;
-    background-color: #A31929;
+    background-color: #333333;
     width: 100%;
     height: 6vw;
     padding: 20px 0 0 10px;
@@ -193,7 +196,7 @@ a:hover {
 #footer-content {
     margin: 0 auto;
     text-align: center;
-    padding-bottom: 20px;
+    padding: 20px 0 20px 0;	
 }
 /* END MAIN MAIN MAIN MAIN */
 
@@ -224,17 +227,17 @@ a:hover {
 /* CSS FOR PUSH OUT MENU, COURTESY OF http://tympanus.net/ */
 /* General styles for all menus */
 .cbp-spmenu {
-	background: #A31929;
+	background: #333333;
 	position: fixed;
 }
 
 .cbp-spmenu h3 {
-	color: #e43f54;
+	color: #fff;
 	font-size: 1.9em;
 	padding: 20px;
 	margin: 0;
 	font-weight: 300;
-	background: #771929;
+	background: #262626;
 }
 
 .cbp-spmenu a {
@@ -245,11 +248,11 @@ a:hover {
 }
 
 .cbp-spmenu a:hover {
-	background: #771929;
+	background: #262626;
 }
 
 .cbp-spmenu a:active {
-	background: #771929;
+	background: #262626;
 	color: white;
 }
 
@@ -263,7 +266,7 @@ a:hover {
 }
 
 .cbp-spmenu-vertical a {
-	border-bottom: 1px solid #771929;
+	border-bottom: 1px solid #262626;
 	padding: 1em;
 }
 
@@ -285,7 +288,7 @@ a:hover {
 	float: left;
 	width: 20%;
 	padding: 0.8em;
-	border-left: 1px solid #771929;
+	border-left: 1px solid #333333;
 }
 
 /* Vertical menu that slides from the left or right */
@@ -390,47 +393,3 @@ a:hover {
 }
 
 /* END CSS FOR PUSH OUT MENU */
-/* SCORE LOGGING FIELDS */
-table tr,td {
-    padding:10px;
-}
-table td a {
-    color: #A31929;
-    text-decoration: none;
-}
-table td a:hover {
-    color: red;
-}
-table td a:visited {
-    color: #A31929;
-}
-table tr td input {
-    width:100%;
-    height:45px;
-    border:solid #e1e1e1 1px;
-    border-radius:3px;
-    padding-left:10px;
-    font-family:Verdana, Geneva, sans-serif;
-    font-size:16px;
-    background:#f9f9f9;
-    transition-duration:0.5s;
-    box-shadow: inset 0px 0px 1px rgba(0,0,0,0.4);
-}
-table tr td button {
-    height:45px;
-    width: 100%;
-    border:0px;
-    background: #A31929;
-    background:-moz-linear-gradient(top, #595959 , #515151);
-    border-radius:3px;
-    box-shadow: 1px 1px 1px rgba(1,0,0,0.2);
-    color:#f9f9f9;
-    font-family:Verdana, Geneva, sans-serif;
-    font-size:18px;
-    font-weight:bolder;
-    text-transform:uppercase;
-}
-table tr td button:active {
-    position:relative;
-    top:1px;
-}
