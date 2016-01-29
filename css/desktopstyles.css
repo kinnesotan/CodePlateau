@@ -47,6 +47,7 @@ body {
 }
 #desktop-nav ul li a:hover {
     text-decoration: none;
+    color: #d56a00;
     background: #262626;
 
 }
@@ -67,4 +68,19 @@ body {
     margin: 0 auto;
     text-align: center;
     padding: 20px 0 20px 0;
+}
+/* IMAGE ATTRIBUTES */
+.lan-image {
+    height: 100px;
+    width: 100px;   
+    overflow: hidden;
+    float: left;
+    margin: 70px;
+}
+div.lan-image :hover {
+    background-color: #d56a00;
+}
+.logo-styles {
+    width: 900px;
+    margin: 0 auto;
 }

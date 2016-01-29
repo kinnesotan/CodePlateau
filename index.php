@@ -25,7 +25,16 @@
         </div>
         <div id="header"></div>
         <div class="main">
-				
+            <div class="logo-styles">
+                <div class="lan-image"><a href="#"><img src="images/csharp.png" width="100" height="100" alt="C# logo"></a></div>
+                <div class="lan-image"><a href="#"><img src="images/javascript.png" width="100" height="100" alt="JavaScript logo"></a></div>
+                <div class="lan-image"><a href="#"><img src="images/php.png" width="100" height="100" alt="PHP logo"></a></div>
+            </div>
+            <div class="logo-styles">
+                <div class="lan-image"><a href="#"><img src="images/sql.png" width="100" height="100" alt="SQL logo"></a></div>
+                <div class="lan-image"><a href="#"><img src="images/html.png" width="100" height="100" alt="HTML logo"></a></div>
+                <div class="lan-image"><a href="#"><img src="images/css.png" width="100" height="100" alt="CSS logo"></a></div>
+            </div>
         </div>
         <div id="footer">
             <div id="footer-content">
