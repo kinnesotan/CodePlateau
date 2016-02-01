@@ -10,12 +10,22 @@ body {
 }
 #top-bar {
     width: 100%;
-    height: 50px;
-    background-color: #808080;
+    height: 60px;
+    background-color: #333333;
 }
 #logo {
-    padding-top: 10px;
     float: left;
+    overflow: hidden;
+    background-color: white;
+    width: 150px;
+    height: 38px;
+}
+#logo :hover {
+    background-color: #d56a00;
+}
+#logo-div {
+    float: left;
+    padding-top: 10px;
 }
 /* NAVIGATION STYLES */
 #desktop-nav {
@@ -70,17 +80,37 @@ body {
     padding: 20px 0 20px 0;
 }
 /* IMAGE ATTRIBUTES */
-.lan-image {
+.lan-image-1 {
     height: 100px;
     width: 100px;   
     overflow: hidden;
     float: left;
     margin: 70px;
 }
-div.lan-image :hover {
+.lan-image-2 {
+    height: 100px;
+    width: 100px;   
+    overflow: hidden;
+    float: left;
+    margin: 70px;
+}
+.lan-image-3 {
+    height: 100px;
+    width: 100px;   
+    overflow: hidden;
+    float: left;
+    margin: 70px 0 70px 70px;
+}
+div.lan-image-1 :hover {
+    background-color: #d56a00;
+}
+div.lan-image-2 :hover {
+    background-color: #d56a00;
+}
+div.lan-image-3 :hover {
     background-color: #d56a00;
 }
 .logo-styles {
-    width: 900px;
+    width: 700px;
     margin: 0 auto;
 }

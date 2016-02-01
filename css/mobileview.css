@@ -253,7 +253,7 @@ a:hover {
 
 .cbp-spmenu a:active {
 	background: #262626;
-	color: white;
+	color: #d56a00;
 }
 
 /* Orientation-dependent styles for the content of the menu */
@@ -393,3 +393,34 @@ a:hover {
 }
 
 /* END CSS FOR PUSH OUT MENU */
+/* IMAGE ATTRIBUTES */
+.lan-image-1 {
+    height: 100px;
+    width: 100px;   
+    overflow: hidden;
+    float: left;
+    margin: 20px 20px 20px 20px;
+}
+.lan-image-2 {
+    height: 100px;
+    width: 100px;   
+    overflow: hidden;
+    float: left;
+    margin: 20px 0 20px 20px;
+}
+div.lan-image-1 :hover {
+    background-color: #d56a00;
+}
+div.lan-image-2 :hover {
+    background-color: #d56a00;
+}
+div.lan-image-1 :active {
+    background-color: #d56a00;
+}
+div.lan-image-2 :active {
+    background-color: #d56a00;
+}
+.logo-styles {
+    width: 280px;
+    margin: 0 auto;
+}
