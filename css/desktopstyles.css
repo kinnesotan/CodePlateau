@@ -114,3 +114,53 @@ div.lan-image-3 :hover {
     width: 700px;
     margin: 0 auto;
 }
+/* CODE BLOCK CSS ------------------ */
+.codeblock {
+    width: 500px;
+    height: 500px;
+    background-color: gray;
+    margin: 20px auto;
+    font-size: 1.2em;
+}
+.code-button {
+    width: 100%;
+    text-align: center;
+    font-size: 1.1em;
+    margin: 0 auto;
+    border: none;
+    background-color: #333333;
+}
+.code-button ul {
+    padding: 0;
+}
+.code-button ul li {
+    display: inline-block;
+}
+.code-button ul li a:link {
+    text-decoration: none;
+    color: white;
+}
+
+.code-button ul li a:link {
+    text-decoration: none;
+    padding: 10px;
+}
+.code-button ul a:visited {
+    color: white;
+}
+.code-button ul li a:hover {
+    text-decoration: none;
+    color: #d56a00;
+    background: #262626;
+
+}
+.code-button a {
+    display: inline-block;
+    width: 100px;
+}
+.code {
+    padding: 5px;
+}
+.code-button a:focus {
+    background: #d56a00;
+}
