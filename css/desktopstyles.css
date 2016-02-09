@@ -114,6 +114,16 @@ div.lan-image-3 :hover {
     width: 700px;
     margin: 0 auto;
 }
+/* Exercise content block -----------*/
+.exercise {
+    width: 60%;
+    height: auto;
+    margin: 0 auto;
+    font-size: 1.1em;
+}
+.exercise h3 {
+    text-align: center;
+}
 /* CODE BLOCK CSS ------------------ */
 .codeblock {
     width: 500px;
