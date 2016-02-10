@@ -42,7 +42,7 @@ if(isset($_POST['btn-login']))
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-		<title>Login | Ping Pong Rankings</title>
+		<title>Login | Code Plateau</title>
 		<link rel="stylesheet" media="(min-width: 1000px)" href="css/desktopstyles.css" />
 		<link rel="stylesheet" media="(max-width: 999px)" href="css/mobileview.css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,18 +64,24 @@ if(isset($_POST['btn-login']))
         </div>
         <div id="header"></div>
         <div class="main">
-		<form method="post">
-			<table align="center" width="100%" border="0">
-			<tr>
-			<td><input type="text" name="username" placeholder="Your username" required /></td>
-			</tr>
-			<tr>
-			<td><input type="password" name="pass" placeholder="Your Password" required /></td>
-			</tr>
-			<tr>
-			<td><button type="submit" name="btn-login">Sign In</button></td>
-			</tr>
-			</table>
+		<form class="login-form" method="post"  name="login-form">
+			<ul>
+			    <li>
+				<h2>Login</h2>
+				<span class="required_notification">*Denotes required field</span>
+			    </li>
+			    <li>
+				<label for="name">Username:</label>
+				<input type="text" name="username" placeholder="Your username" required />
+			    </li>
+			    <li>
+				<label for="email">Password:</label>
+				<input type="password" name="pass" placeholder="Your password" required />
+			    </li>
+			    <li>
+				<button class="submit" name="btn-login" type="submit">Submit</button>
+			    </li>
+			</ul>
 		</form>
         </div>
         <div id="footer">
@@ -103,18 +109,24 @@ if(isset($_POST['btn-login']))
                         </div>
 			<div id="header"></div>
 			<div class="main">
-                            	<form method="post">
-					<table align="center" width="100%" border="0">
-					<tr>
-					<td><input type="text" name="username" placeholder="Your username" required /></td>
-					</tr>
-					<tr>
-					<td><input type="password" name="pass" placeholder="Your Password" required /></td>
-					</tr>
-					<tr>
-					<td><button type="submit" name="btn-login">Sign In</button></td>
-					</tr>
-					</table>
+                            	<form class="login-form" method="post"  name="login-form">
+					<ul>
+					    <li>
+						<h2>Login</h2>
+						<span class="required_notification">*Denotes required field</span>
+					    </li>
+					    <li>
+						<label for="name">Username:</label>
+						<input type="text" name="username" placeholder="Your username" required />
+					    </li>
+					    <li>
+						<label for="email">Password:</label>
+						<input type="password" name="pass" placeholder="Your password" required />
+					    </li>
+					    <li>
+						<button class="submit" name="btn-login" type="submit">Submit</button>
+					    </li>
+					</ul>
 				</form>		
 			</div>
 			    <div id="footer">
