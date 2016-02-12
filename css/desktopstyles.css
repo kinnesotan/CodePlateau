@@ -132,6 +132,23 @@ div.lan-image-3 :hover {
     margin: 20px auto;
     font-size: 1.2em;
 }
+#editor {
+    width: 500px;
+    height: 500px;
+    margin-top: -20px;
+    margin-bottom: 100px;
+    overflow: scroll;
+}
+.select {
+    width: 300px;
+    margin: 30px auto;
+}
+Select {
+    width: 300px;
+    height: 40px;
+    font-size: 1.8em;
+    text-align: center;
+}
 .code-button {
     width: 100%;
     text-align: center;
