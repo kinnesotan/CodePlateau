@@ -574,3 +574,27 @@ button.submit:active {
 	-o-box-shadow: 0 0 10px 5px #c16100 inset;
 	
 }
+/* CODE EDITOR BLOCK =========== */
+.codeblock {
+    width: 300px;
+    height: 500px;
+    background-color: gray;
+    margin: 30px auto;
+    font-size: 1.2em;
+}
+#mobile-	editor {
+    width: 300px;
+    height: 500px;
+    margin-top: -20px;
+    margin-bottom: 100px;
+    overflow: scroll;
+}
+.select {
+    width: 300px;
+    margin: 30px auto;
+}
+Select {
+    width: 300px;
+    height: 40px;
+    font-size: 1.8em;
+	

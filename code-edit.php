@@ -33,6 +33,35 @@ if(isset($_POST['btn-login']))
 	}
 	
 }
+if(isset($_POST['btn-post']))
+{
+	#DECLARE PHP VARIABLES FOR CONTENT
+	$title = $_POST["title"];
+	$content = $_POST["content"];
+	$code = $_POST["code"];
+	$language = $_POST["language"];
+	
+	
+	#IF NO LANGUAGE IS SELECTED, THROW ERROR
+	if(!isset($_POST["language"]))
+	{
+		?>
+		<script>alert('Please select the language for this exercise...');</script>
+		<?php
+	}
+	if(mysqli_query($con,"INSERT INTO exercise(title,content,code,language) VALUES('$title','$content','$code','$langauge')"))
+	{
+		?>
+		<script>alert('Your exercise was successfully entered');</script>
+		<?php
+	}
+	else
+	{
+		?>
+		<script>alert('There was an error while submitting your exercise...');</script>
+		<?php
+	}
+}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -71,10 +100,7 @@ if(isset($_POST['btn-login']))
 				}
 				else if (mode.value=="html") {
 					editor.session.setMode("ace/mode/html");
-				}
-			    
-			    
-				
+				}	
 			}
 		</script>
 	</head>
@@ -92,30 +118,59 @@ if(isset($_POST['btn-login']))
         </div>
         </div>
         <div id="header"></div>
+	
+	<!-- main page content begins here: Code editor, content, exercises, etc. -->
         <div class="main">
-		<div class="select">
-			<select id="select" onchange="langMode()">
-				<option>Select Language</option>
-				<option value="php">PHP</option>
-				<option value="java">Java</option>
-				<option value="csharp">C#</option>
-				<option value="javascript">JavaScript</option>
-				<option value="css">CSS</option>
-				<option value="html">HTML</option>
-				<option value="sql">SQL</option>
-			</select>
-		</div>
-		<div class="codeblock">	
-			<pre id="editor"></pre>
-			<script src="editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-			<script>
-			    var editor = ace.edit("editor");
-			    editor.setTheme("ace/theme/twilight");
-			   // editor.session.setMode("ace/mode/php");
-			</script>
-			
-		</div>
+		<!-- Select the type of language for the user to enable in the code block -->
+		<!-- Code editor starts here -->
+		<form method="post" class="exercise-form" name="exercise-form">
+			<ul>
+				<li>
+					<label for="title">Title:</label>
+					<input type="text" name="title" placeholder="Exercise title..." required />
+				</li>
+				<li>
+					<label for="content">Content:</label>
+					<textarea name="content" placeholder="Enter supplemental text here..." cols="40" rows="6" required></textarea>
+				</li>
+				<li>
+					<div class="select">
+						<select id="select" name="language" onchange="langMode()">
+							<option>Select Language</option>
+							<option value="php">PHP</option>
+							<option value="java">Java</option>
+							<option value="csharp">C#</option>
+							<option value="javascript">JavaScript</option>
+							<option value="css">CSS</option>
+							<option value="html">HTML</option>
+							<option value="sql">SQL</option>
+						</select>
+					</div>
+				</li>
+			</ul>
+			<div class="codeblock">
+				
+				<pre id="editor">
+				</pre>
+				<script src="editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+				<script name="code">
+				    var editor = ace.edit("editor");
+				    //if the line below is set to true, the user will not be able to edit the code block
+				    //editor.setReadOnly(true);
+				    
+				    //this sets the theme for the editor
+				    editor.setTheme("ace/theme/twilight");
+				    
+				    //this is declared in the script at the top of the page
+				   // editor.session.setMode("ace/mode/+language");
+				</script>
+				
+			</div>
+		<button class="submit" style="margin: 0 700px;" name="btn-post" type="submit">Submit</button>
+		</form>
+		<!-- Code editor ends here -->
 	</div>
+	<!-- main page content ends here -->
         <div id="footer">
             <div id="footer-content">
                 Code Plateau<br/>
@@ -141,6 +196,25 @@ if(isset($_POST['btn-login']))
                         </div>
 			<div id="header"></div>
 			<div class="main">
+				<!-- Select the type of language for the user to enable in the code block -->
+		<div class="select">
+			<select id="select" onchange="langMode()">
+				<option>Select Language</option>
+				<option value="php">PHP</option>
+				<option value="java">Java</option>
+				<option value="csharp">C#</option>
+				<option value="javascript">JavaScript</option>
+				<option value="css">CSS</option>
+				<option value="html">HTML</option>
+				<option value="sql">SQL</option>
+			</select>
+		</div>
+				<!-- Code editor starts here -->
+		<div class="codeblock">	
+			
+			
+		</div>
+		<!-- Code editor ends here -->
                             		
 			</div>
 			    <div id="footer">
