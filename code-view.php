@@ -7,68 +7,21 @@ if(isset($_SESSION['user'])!="")
 }
 
 $con = mysqli_connect("localhost","root","", "codesite");
+$result = mysqli_query($con,"SELECT exercise_id, title, content, language, code FROM exercise WHERE exercise_id = 34");
 
-if(isset($_POST['btn-login']))
+if($row = mysqli_fetch_array($result, MYSQLI_NUM))
 {
-	$username = mysqli_real_escape_string($con,$_POST['username']);
-	$upass = mysqli_real_escape_string($con,$_POST['pass']);
-	$res = mysqli_query($con,"SELECT * FROM users WHERE username='$username'");
-	$row = mysqli_fetch_array($res);
-	if (!$res)
-	{
-		printf("Error: %s\n", mysqli_error($con));
-		exit();
-	}
-	if($row>0)
-	{
-		$_SESSION[‘user’]= $row['user_id'];
-		header("Location: index.php");
-	}
-	else
-	{
+	
 	?>
-        <script>alert('wrong details');</script>
-	<?php echo "$username $upass"; ?>
-        <?php
-	}
+	<script>alert("SQL ran successfully")</script>
+	<?php
 	
 }
-if(isset($_POST['btn-post']))
+else
 {
-	#DECLARE PHP VARIABLES FOR CONTENT
-	$title = mysqli_real_escape_string($con,$_POST["title"]);
-	$content = mysqli_real_escape_string($con,$_POST["content"]);
-	$code = mysqli_real_escape_string($con,$_POST["code"]);
-	$language = mysqli_real_escape_string($con,$_POST["language"]);
-	
-	#IF NO LANGUAGE IS SELECTED, THROW ERROR
-	if(!isset($_POST["language"]))
-	{
-		?>
-		<script>alert('Please select the language for this exercise...');</script>
-		<?php
-	}
-	/*
-	$sql = mysqli_query($con,"INSERT INTO exercise(title,content,code,language) VALUES('$title','$content','$code','$language')");
-	if ($con->query($sql) === TRUE) {
-		echo "New record created successfully";
-	    } else {
-		echo "Error: " . $sql . "<br>" . $con->error;
-	    }
-	    */
-	if(mysqli_query($con,"INSERT INTO exercise(title,content,code,language) VALUES('$title','$content','$code','$language')"))
-	{
-		?>
-		<script>alert('Your exercise was successfully entered');</script>
-		<?php
-	}
-	else
-	{
-		echo mysql_errno($link) . ": " . mysql_error($link) . "\n";
-		?>
-		<script>alert('There was an error while submitting your exercise...');</script>
-		<?php
-	}
+	?>
+	<script>alert("There was an error gettings the exercise")</script>
+	<?php
 }
 ?>
 
@@ -79,43 +32,18 @@ if(isset($_POST['btn-post']))
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-		<title>Code Editor | Code Plateau</title>
+		<title>Code Viewer | Code Plateau</title>
 		<link rel="stylesheet" media="(min-width: 1000px)" href="css/desktopstyles.css" />
 		<link rel="stylesheet" media="(max-width: 999px)" href="css/mobileview.css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="js/modernizr.custom.js"></script>
 		<link rel="shortcut icon" href="images/favicon.ico">
 			
-		 <script>
-			var code = document.getElementById("editor");
-			editor.getValue(code);
-			
-			function langMode() {
-				var mode=document.getElementById("select");
-				if (mode.value=="php") {
-					 editor.session.setMode("ace/mode/php");
-				}
-				else if (mode.value=="java") {
-					editor.session.setMode("ace/mode/java");
-				}
-				else if (mode.value=="csharp") {
-					editor.session.setMode("ace/mode/csharp");
-				}
-				else if (mode.value=="javascript") {
-					editor.session.setMode("ace/mode/javascript");
-				}
-				else if (mode.value=="css") {
-					editor.session.setMode("ace/mode/css");
-				}
-				else if (mode.value=="html") {
-					editor.session.setMode("ace/mode/html");
-				}	
+		 <script type="text/javascript">
+			var lang = <?php echo $row[3] ?>;
+			if (lang==php) {
+				editor.session.setMode("ace/mode/php");
 			}
-			function getCode() {
-				document.getElementById('code').value = editor.getValue(code);
-				alert(editor.getValue(code));
-			}
-			
 		</script>
 	</head>
 	<body class="cbp-spmenu-push">
@@ -141,34 +69,27 @@ if(isset($_POST['btn-post']))
 			<ul>
 				<li>
 					<label for="title">Title:</label>
-					<input type="text" name="title" placeholder="Exercise title..." required />
+						<?php echo '<input type="text" name="title" value="'.$row[1].'" readonly />'; ?>
 					<input type="hidden" name="code" id="code" value="";/>
 				</li>
 				<li>
 					<label for="content">Content:</label>
-					<textarea name="content" placeholder="Enter supplemental text here..." cols="40" rows="6" required></textarea>
+					<textarea name="content" placeholder="Enter supplemental text here..." cols="40" rows="6" readonly>
+<?php echo $row[2]; ?>
+					</textarea>
+					
 				</li>
 				<li>
-					<div class="select">
-						<select id="select" name="language" onchange="langMode()">
-							<option>Select Language</option>
-							<option value="php">PHP</option>
-							<option value="java">Java</option>
-							<option value="csharp">C#</option>
-							<option value="javascript">JavaScript</option>
-							<option value="css">CSS</option>
-							<option value="html">HTML</option>
-							<option value="sql">SQL</option>
-						</select>
-					</div>
+					
+					<?php echo "<h1 style='text-align: center';>Language : ", strtoupper($row[3]), "</h1>"; ?>
 				</li>
 			</ul>
 			<div class="codeblock">
 <div id="editor" name="code">
+<!-- PHP codeblock to display in code editor -->
 <?php
-echo "<pre>";
-
-echo "</pre>";
+//echo the code from the database
+echo '<pre>'. htmlspecialchars($row[4]) . '</pre>';
 ?>
 </div>
 				<script src="editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -178,15 +99,11 @@ echo "</pre>";
 				    //editor.setReadOnly(true);
 				    //this sets the theme for the editor
 				    editor.setTheme("ace/theme/twilight");
-				    
+				    //editor.session.setMode("ace/mode/php");
 				    //this is declared in the script at the top of the page
 				   // editor.session.setMode("ace/mode/+language");
 				</script>
 			</div>
-		<button class="submit" style="margin: 0 700px;" name="btn-post" onclick="getCode();" type="submit">Submit</button>
-		<script>
-			document.write(editor.getValue(code));
-		</script>
 		</form>
 		<!-- Code editor ends here -->
 	</div>
