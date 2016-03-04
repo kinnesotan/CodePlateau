@@ -124,7 +124,7 @@ if(isset($_POST['btn-post']))
             <div id="logo-div"><div id="logo"><a href="index.php"><img src="images/CodePlateauTest.png" alt="Code Plateau logo desktop"width="150" height="38"></a></div></div>
             <div id="desktop-nav">
             <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="#">Learn</a></li>
                 <li><a href="#">Exercises</a></li>
                 <li><a href="#">About Us</a></li>
@@ -138,10 +138,11 @@ if(isset($_POST['btn-post']))
 		<!-- Select the type of language for the user to enable in the code block -->
 		<!-- Code editor starts here -->
 		<form method="post" class="exercise-form" name="exercise-form">
+			<div id="exercise-text">
 			<ul>
 				<li>
 					<label for="title">Title:</label>
-					<input type="text" name="title" placeholder="Exercise title..." required />
+					<input id="title" type="text" name="title" placeholder="Exercise title..." required />
 					<input type="hidden" name="code" id="code" value="";/>
 				</li>
 				<li>
@@ -162,7 +163,11 @@ if(isset($_POST['btn-post']))
 						</select>
 					</div>
 				</li>
-			</ul>
+				<li>
+				<button class="submit" name="btn-post" onclick="getCode();" type="submit">Submit Exercise</button>	
+				</li>
+			</ul>			
+			</div>
 			<div class="codeblock">
 <div id="editor" name="code">
 <?php
@@ -183,7 +188,6 @@ echo "</pre>";
 				   // editor.session.setMode("ace/mode/+language");
 				</script>
 			</div>
-		<button class="submit" style="margin: 0 700px;" name="btn-post" onclick="getCode();" type="submit">Submit</button>
 		<script>
 			document.write(editor.getValue(code));
 		</script>

@@ -7,7 +7,7 @@ if(isset($_SESSION['user'])!="")
 }
 
 $con = mysqli_connect("localhost","root","", "codesite");
-$result = mysqli_query($con,"SELECT exercise_id, title, content, language, code FROM exercise WHERE exercise_id = 34");
+$result = mysqli_query($con,"SELECT exercise_id, title, content, language, code FROM exercise WHERE exercise_id = 35");
 
 if($row = mysqli_fetch_array($result, MYSQLI_NUM))
 {
@@ -40,10 +40,7 @@ else
 		<link rel="shortcut icon" href="images/favicon.ico">
 			
 		 <script type="text/javascript">
-			var lang = <?php echo $row[3] ?>;
-			if (lang==php) {
-				editor.session.setMode("ace/mode/php");
-			}
+			<?php echo "editor.session.setMode(\"ace/mode/",$row[3],")";?>
 		</script>
 	</head>
 	<body class="cbp-spmenu-push">
@@ -52,7 +49,7 @@ else
             <div id="logo-div"><div id="logo"><a href="index.php"><img src="images/CodePlateauTest.png" alt="Code Plateau logo desktop"width="150" height="38"></a></div></div>
             <div id="desktop-nav">
             <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="#">Learn</a></li>
                 <li><a href="#">Exercises</a></li>
                 <li><a href="#">About Us</a></li>
@@ -66,6 +63,7 @@ else
 		<!-- Select the type of language for the user to enable in the code block -->
 		<!-- Code editor starts here -->
 		<form method="post" class="exercise-form" name="exercise-form">
+			<div id="exercise-text">
 			<ul>
 				<li>
 					<label for="title">Title:</label>
@@ -80,17 +78,14 @@ else
 					
 				</li>
 				<li>
-					
-					<?php echo "<h1 style='text-align: center';>Language : ", strtoupper($row[3]), "</h1>"; ?>
+					<h1>Language: <?php echo strtoupper($row[3])?></h1>
 				</li>
 			</ul>
+			</div>
 			<div class="codeblock">
 <div id="editor" name="code">
 <!-- PHP codeblock to display in code editor -->
-<?php
-//echo the code from the database
-echo '<pre>'. htmlspecialchars($row[4]) . '</pre>';
-?>
+<?php echo '<pre>'. htmlspecialchars($row[4]) . '</pre>'; ?>
 </div>
 				<script src="editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 				<script>
@@ -99,7 +94,7 @@ echo '<pre>'. htmlspecialchars($row[4]) . '</pre>';
 				    //editor.setReadOnly(true);
 				    //this sets the theme for the editor
 				    editor.setTheme("ace/theme/twilight");
-				    //editor.session.setMode("ace/mode/php");
+				    editor.session.setMode("ace/mode/php");
 				    //this is declared in the script at the top of the page
 				   // editor.session.setMode("ace/mode/+language");
 				</script>
@@ -176,14 +171,9 @@ echo '<pre>'. htmlspecialchars($row[4]) . '</pre>';
 				classie.toggle( menuLeft, 'cbp-spmenu-open' );
 				disableOther( 'showLeftPush' );
 			};
-		</script>
-		
-		
+		</script>	
         </div>
 <!-- MOBILE CONTENT ENDS HERE -->
     </div>
-
-
-
 </body>
 </html>

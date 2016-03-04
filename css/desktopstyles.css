@@ -125,28 +125,31 @@ div.lan-image-3 :hover {
     text-align: center;
 }
 /* CODE BLOCK CSS ------------------ */
+#exercise-text {
+    width: 47%;
+    float: left;
+}
 .codeblock {
-    width: 80%;
-    height: 500px;
+    width: 47%;
+    height: 400px;
     background-color: gray;
-    margin: 20px auto;
+    margin: 75px 20px;
     font-size: 1.2em;
+    float: left;
 }
 #editor {
     width: 100%;
-    height: 500px;
+    height: 455px;
     margin-top: -20px;
     margin-bottom: 100px;
-    overflow: scroll;
-}
-.select {
-    width: 400px;
+    overflow-y: scroll;
 }
 Select {
-    width: 418px;
+    width: 92.5%;
     height: 40px;
     font-size: 1.8em;
     text-align: center;
+    margin: 0 auto;
 }
 .code-button {
     width: 100%;
@@ -216,19 +219,26 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
 	
 }
 .exercise-form ul {
-        width:400px;
+        width:90%;
         list-style-type:none;
 	list-style-position:outside;
-	margin: 40px auto;
-	padding:0px;
+	margin: 10px auto;
 }
 .exercise-form li{
 	padding:12px; 
-
+        width: 100%;
 	position:relative;
 } 
 .exercise-form li:first-child, .exercise-form li:last-child {
 	
+}
+.exercise-form h1 {
+    text-align: center;
+    width: 95%;
+}
+label {
+    font-size: 1.5em;
+    margin: 5px;
 }
 
 /* === Form Header === */
@@ -260,7 +270,10 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
 	width:220px; 
 	padding:5px 8px;
 }
-.login-form textarea {padding:8px; width:300px;}
+.login-form textarea {
+    padding:8px;
+    width:300px;
+}
 .login-form button {
     width: 300px;
 }
@@ -282,33 +295,34 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
         box-shadow: 0 0 3px #aaa; 
 }
 /* === Exercise Form Elements == */
+textarea {
+    resize: none;
+}
 .exercise-form label {
-	width:150px;
+	width:100%;
 	margin-top: 3px;
 	display:inline-block;
 	float:left;
 	padding:3px;
 }
-.exercise-form input {
-	height:30px; 
-	width:410px; 
-	padding:5px 8px;
-}
 .exercise-form textarea {
     padding:8px;
-    width:400px;
-
+    width:90%;
+    height: 200px;
 }
 .exercise-form button {
-    width: 300px;
+    width: 92.5%;
+    height: 40px;
+    margin: 0 auto;
 }
 /* form element visual styles */
 .exercise-form input { 
         border:1px solid #aaa;
-        width: 380px;
+        height:30px; 
+	width:90%; 
+	padding:5px 8px;
         box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
         border-radius:2px;
-        padding-right:30px;
         -moz-transition: padding .25s; 
         -webkit-transition: padding .25s; 
         -o-transition: padding .25s;
@@ -372,6 +386,14 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
 	background: #fff url(/images/invalid.png) no-repeat 98% center;
 	box-shadow: 0 0 5px #d45252;
 	border-color: #b03535
+}
+.exercise-form textarea {
+     box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
+        border-radius:2px;
+        -moz-transition: padding .25s; 
+        -webkit-transition: padding .25s; 
+        -o-transition: padding .25s;
+        transition: padding .25s;
 }
 
 /* === Form hints === */
