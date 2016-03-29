@@ -31,7 +31,6 @@ if(isset($_POST['btn-login']))
 	<?php echo "$username $upass"; ?>
         <?php
 	}
-	
 }
 ?>
 

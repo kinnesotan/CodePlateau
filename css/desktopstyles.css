@@ -232,13 +232,17 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
 .exercise-form li:first-child, .exercise-form li:last-child {
 	
 }
+#input-text {
+    font-weight: bold;
+    font-size: 1.5em;
+}
 .exercise-form h1 {
     text-align: center;
     width: 95%;
 }
 label {
     font-size: 1.5em;
-    margin: 5px;
+    margin: 5px 0;
 }
 
 /* === Form Header === */

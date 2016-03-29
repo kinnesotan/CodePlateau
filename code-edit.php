@@ -5,62 +5,40 @@ if(isset($_SESSION['user'])!="")
 {
 	header("Location: index.php");
 }
-
+$id = $_REQUEST['id'];
 $con = mysqli_connect("localhost","root","", "codesite");
+$result = mysqli_query($con,"SELECT exercise_id, title, content, language, code FROM exercise WHERE exercise_id = $id");
 
-if(isset($_POST['btn-login']))
+if($row = mysqli_fetch_array($result, MYSQLI_NUM))
 {
-	$username = mysqli_real_escape_string($con,$_POST['username']);
-	$upass = mysqli_real_escape_string($con,$_POST['pass']);
-	$res = mysqli_query($con,"SELECT * FROM users WHERE username='$username'");
-	$row = mysqli_fetch_array($res);
-	if (!$res)
-	{
-		printf("Error: %s\n", mysqli_error($con));
-		exit();
-	}
-	if($row>0)
-	{
-		$_SESSION[‘user’]= $row['user_id'];
-		header("Location: index.php");
-	}
-	else
-	{
+	/* This can be enabled to make sure SQL is running when the page starts
 	?>
-        <script>alert('wrong details');</script>
-	<?php echo "$username $upass"; ?>
-        <?php
-	}
-	
+	<script>alert("SQL ran successfully")</script>
+	<?php
+	*/
 }
+else
+{
+	?>
+	<script>alert("There was an error gettings the exercise")</script>
+	<?php
+}
+
 if(isset($_POST['btn-post']))
 {
 	#DECLARE PHP VARIABLES FOR CONTENT
-	$title = mysqli_real_escape_string($con,$_POST["title"]);
-	$content = mysqli_real_escape_string($con,$_POST["content"]);
-	$code = mysqli_real_escape_string($con,$_POST["code"]);
-	$language = mysqli_real_escape_string($con,$_POST["language"]);
+	$update_title = mysqli_real_escape_string($con,$_POST["title"]);
+	$update_content = mysqli_real_escape_string($con,$_POST["content"]);
+	$update_code = mysqli_real_escape_string($con,$_POST["code"]);
 	
-	#IF NO LANGUAGE IS SELECTED, THROW ERROR
-	if(!isset($_POST["language"]))
+	if(mysqli_query($con,"UPDATE exercise SET title = '$update_title',
+						  content = '$update_content',
+						  code = '$update_code' WHERE exercise_id = $id"))
 	{
 		?>
-		<script>alert('Please select the language for this exercise...');</script>
+		<script>alert('Your exercise was successfully updated');</script>
 		<?php
-	}
-	/*
-	$sql = mysqli_query($con,"INSERT INTO exercise(title,content,code,language) VALUES('$title','$content','$code','$language')");
-	if ($con->query($sql) === TRUE) {
-		echo "New record created successfully";
-	    } else {
-		echo "Error: " . $sql . "<br>" . $con->error;
-	    }
-	    */
-	if(mysqli_query($con,"INSERT INTO exercise(title,content,code,language) VALUES('$title','$content','$code','$language')"))
-	{
-		?>
-		<script>alert('Your exercise was successfully entered');</script>
-		<?php
+		//header("Location: exercise-view.php");
 	}
 	else
 	{
@@ -69,6 +47,7 @@ if(isset($_POST['btn-post']))
 		<script>alert('There was an error while submitting your exercise...');</script>
 		<?php
 	}
+
 }
 ?>
 
@@ -87,35 +66,15 @@ if(isset($_POST['btn-post']))
 		<link rel="shortcut icon" href="images/favicon.ico">
 			
 		 <script>
+			<?php echo "editor.session.setMode(\"ace/mode/",$row[3],"\;)";?>
+			
 			var code = document.getElementById("editor");
 			editor.getValue(code);
 			
-			function langMode() {
-				var mode=document.getElementById("select");
-				if (mode.value=="php") {
-					 editor.session.setMode("ace/mode/php");
-				}
-				else if (mode.value=="java") {
-					editor.session.setMode("ace/mode/java");
-				}
-				else if (mode.value=="csharp") {
-					editor.session.setMode("ace/mode/csharp");
-				}
-				else if (mode.value=="javascript") {
-					editor.session.setMode("ace/mode/javascript");
-				}
-				else if (mode.value=="css") {
-					editor.session.setMode("ace/mode/css");
-				}
-				else if (mode.value=="html") {
-					editor.session.setMode("ace/mode/html");
-				}	
-			}
 			function getCode() {
 				document.getElementById('code').value = editor.getValue(code);
 				alert(editor.getValue(code));
 			}
-			
 		</script>
 	</head>
 	<body class="cbp-spmenu-push">
@@ -142,39 +101,28 @@ if(isset($_POST['btn-post']))
 			<ul>
 				<li>
 					<label for="title">Title:</label>
-					<input id="title" type="text" name="title" placeholder="Exercise title..." required />
+						<?php echo '<input type="text" id="input-text" name="title" value="'.$row[1].'" />'; ?>
 					<input type="hidden" name="code" id="code" value="";/>
 				</li>
 				<li>
 					<label for="content">Content:</label>
-					<textarea name="content" placeholder="Enter supplemental text here..." cols="40" rows="6" required></textarea>
+					<textarea name="content" placeholder="Enter supplemental text here..." cols="40" rows="6">
+<?php echo $row[2]; ?>
+					</textarea>
+					
 				</li>
 				<li>
-					<div class="select">
-						<select id="select" name="language" onchange="langMode()">
-							<option>Select Language</option>
-							<option value="php">PHP</option>
-							<option value="java">Java</option>
-							<option value="csharp">C#</option>
-							<option value="javascript">JavaScript</option>
-							<option value="css">CSS</option>
-							<option value="html">HTML</option>
-							<option value="sql">SQL</option>
-						</select>
-					</div>
+					<h1>Language: <?php echo strtoupper($row[3])?></h1>
 				</li>
 				<li>
-				<button class="submit" name="btn-post" onclick="getCode();" type="submit">Submit Exercise</button>	
+					<button class="submit" name="btn-post" onclick="getCode();" type="submit">Update Exercise</button>
 				</li>
-			</ul>			
+			</ul>
 			</div>
 			<div class="codeblock">
 <div id="editor" name="code">
-<?php
-echo "<pre>";
-
-echo "</pre>";
-?>
+<!-- PHP codeblock to display in code editor -->
+<?php echo '<pre>'. htmlspecialchars($row[4]) . '</pre>'; ?>
 </div>
 				<script src="editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 				<script>
@@ -183,14 +131,11 @@ echo "</pre>";
 				    //editor.setReadOnly(true);
 				    //this sets the theme for the editor
 				    editor.setTheme("ace/theme/twilight");
-				    
+				    editor.session.setMode("ace/mode/php");
 				    //this is declared in the script at the top of the page
 				   // editor.session.setMode("ace/mode/+language");
 				</script>
 			</div>
-		<script>
-			document.write(editor.getValue(code));
-		</script>
 		</form>
 		<!-- Code editor ends here -->
 	</div>
@@ -263,14 +208,9 @@ echo "</pre>";
 				classie.toggle( menuLeft, 'cbp-spmenu-open' );
 				disableOther( 'showLeftPush' );
 			};
-		</script>
-		
-		
+		</script>	
         </div>
 <!-- MOBILE CONTENT ENDS HERE -->
     </div>
-
-
-
 </body>
 </html>
