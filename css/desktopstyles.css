@@ -462,3 +462,26 @@ button.submit:active {
 	-o-box-shadow: 0 0 10px 5px #c16100 inset;
 	
 }
+/* STYLES FOR EXERCISE TABLE */
+.table th, td {
+    padding: 10px;
+}
+.table {
+    border: solid thin black;
+    border-spacing: 0;
+}
+.table th {
+    background-color: #393939;
+}
+.table a:link {
+    text-decoration: none;
+    color: #d56a00;
+}
+.table a:visited {
+    color: #d56a00;
+}
+.table a:hover {
+    color: #c16100;
+    font-weight: bold;
+    font-size: 1.1em;
+}

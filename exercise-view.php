@@ -62,16 +62,22 @@ if(isset($_POST['btn-login']))
         </div>
         <div id="header"></div>
         <div class="main">
-		<table  style="margin-bottom: 20px; margin-top: 20px;"  align="center" border="1">
+		<table  class="table" style="margin-bottom: 20px; margin-top: 20px;"  align="center" border="1">
 			<form method="post">
 				<?php
+					echo "<th>Exercise Title</th>";
+					echo "<th>Language</th>";
+					echo "<th>View Exercise</th>";
+					echo "<th>Remove Exercise</th>";
+					echo "<th>Edit Exercise</th>";
 					$result = mysqli_query($con,"SELECT * FROM exercise ORDER by exercise_id");
 					while($test = mysqli_fetch_array($result))
 					{
+					    $langname = $test["language"];
 					    $id = $test['exercise_id'];
 					    echo "<tr align='center'>";
 					    echo "<td>". $test['title']. "</td>";
-					    echo "<td>$". strtoupper($test['language']). "</td>";
+					    echo "<td>". strtoupper($langname). "</td>";
 					    //View exercise
 					    echo "<td><a href='code-view.php?id=$id'>View</a></td>";
 					    //Delete records
