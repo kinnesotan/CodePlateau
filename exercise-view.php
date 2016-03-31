@@ -1,12 +1,11 @@
 <?php
 session_start();
+include_once("includes/dbconnect.php");
 
 if(isset($_SESSION['user'])!="")
 {
 	header("Location: index.php");
 }
-
-$con = mysqli_connect("localhost","root","", "codesite");
 
 if(isset($_POST['btn-login']))
 {

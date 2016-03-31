@@ -1,21 +1,21 @@
 <?php
 session_start();
+include_once("includes/dbconnect.php");
 
 if(isset($_SESSION['user'])!="")
 {
 	header("Location: index.php");
 }
 $id = $_REQUEST['id'];
-$con = mysqli_connect("localhost","root","", "codesite");
 $result = mysqli_query($con,"SELECT exercise_id, title, content, language, code FROM exercise WHERE exercise_id = $id");
+
 
 if($row = mysqli_fetch_array($result, MYSQLI_NUM))
 {
-	/* This can be enabled to make sure SQL is running when the page starts
+	// This can be enabled to make sure SQL is running when the page starts
 	?>
 	<script>alert("SQL ran successfully")</script>
 	<?php
-	*/
 }
 else
 {
@@ -23,6 +23,7 @@ else
 	<script>alert("There was an error gettings the exercise")</script>
 	<?php
 }
+
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -44,7 +45,7 @@ else
 			$lang = $row[3];
 				//echo "editor.session.setMode(\"ace/mode/",$row[3],"\")\;";?>
 			<?php echo "editor.session.setMode(\"ace/mode/$lang\")\;";?>
-			            //editor.session.setMode("ace/mode/php")
+			            editor.session.setMode("ace/mode/php")
 		</script>
 	</head>
 	<body class="cbp-spmenu-push">

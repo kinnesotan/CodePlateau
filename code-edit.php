@@ -1,21 +1,22 @@
 <?php
 session_start();
+include_once("includes/dbconnect.php");
 
 if(isset($_SESSION['user'])!="")
 {
 	header("Location: index.php");
 }
+
 $id = $_REQUEST['id'];
-$con = mysqli_connect("localhost","root","", "codesite");
 $result = mysqli_query($con,"SELECT exercise_id, title, content, language, code FROM exercise WHERE exercise_id = $id");
 
 if($row = mysqli_fetch_array($result, MYSQLI_NUM))
 {
-	/* This can be enabled to make sure SQL is running when the page starts
+	// This can be enabled to make sure SQL is running when the page starts
 	?>
 	<script>alert("SQL ran successfully")</script>
 	<?php
-	*/
+	
 }
 else
 {
