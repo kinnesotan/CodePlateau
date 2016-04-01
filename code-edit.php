@@ -14,7 +14,7 @@ if($row = mysqli_fetch_array($result, MYSQLI_NUM))
 {
 	// This can be enabled to make sure SQL is running when the page starts
 	?>
-	<script>alert("SQL ran successfully")</script>
+	<script>//alert("SQL ran successfully")</script>
 	<?php
 	
 }
@@ -39,7 +39,7 @@ if(isset($_POST['btn-post']))
 		?>
 		<script>alert('Your exercise was successfully updated');</script>
 		<?php
-		//header("Location: exercise-view.php");
+		header("Location: exercise-view.php");
 	}
 	else
 	{
@@ -66,15 +66,14 @@ if(isset($_POST['btn-post']))
 		<script src="js/modernizr.custom.js"></script>
 		<link rel="shortcut icon" href="images/favicon.ico">
 			
-		 <script>
-			<?php echo "editor.session.setMode(\"ace/mode/",$row[3],"\;)";?>
-			
+		<script>
+			var lang = '<?php echo $row[3]; ?>';
 			var code = document.getElementById("editor");
 			editor.getValue(code);
 			
 			function getCode() {
 				document.getElementById('code').value = editor.getValue(code);
-				alert(editor.getValue(code));
+				//alert(editor.getValue(code));
 			}
 		</script>
 	</head>
@@ -86,7 +85,7 @@ if(isset($_POST['btn-post']))
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="#">Learn</a></li>
-                <li><a href="#">Exercises</a></li>
+                <li><a href="exercise-view.php">Exercises</a></li>
                 <li><a href="#">About Us</a></li>
             </ul>
         </div>
@@ -129,12 +128,29 @@ if(isset($_POST['btn-post']))
 				<script>
 				    var editor = ace.edit("editor");
 				    //if the line below is set to true, the user will not be able to edit the code block
-				    //editor.setReadOnly(true);
+					//editor.setReadOnly(true);
 				    //this sets the theme for the editor
-				    editor.setTheme("ace/theme/twilight");
-				    editor.session.setMode("ace/mode/php");
+					editor.setTheme("ace/theme/twilight");
 				    //this is declared in the script at the top of the page
-				   // editor.session.setMode("ace/mode/+language");
+					// editor.session.setMode("ace/mode/+language");
+					if (lang=="php") {
+					    editor.session.setMode("ace/mode/php");
+				       }
+				       else if (lang=="java") {
+					       editor.session.setMode("ace/mode/java");
+				       }
+				       else if (lang=="csharp") {
+					       editor.session.setMode("ace/mode/csharp");
+				       }
+				       else if (lang=="javascript") {
+					       editor.session.setMode("ace/mode/javascript");
+				       }
+				       else if (lang=="css") {
+					       editor.session.setMode("ace/mode/css");
+				       }
+				       else if (lang=="html") {
+					       editor.session.setMode("ace/mode/html");
+				       }
 				</script>
 			</div>
 		</form>

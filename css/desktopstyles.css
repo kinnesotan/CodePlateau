@@ -399,7 +399,17 @@ textarea {
         -o-transition: padding .25s;
         transition: padding .25s;
 }
-
+.login-form ul li a:hover {
+    color: #c16100;
+    font-weight: bold;
+}
+.login-form ul li a:visited {
+    color: #d56a00;
+}
+.login-form ul li a:link {
+    text-decoration: none;
+    color: #d56a00;
+}
 /* === Form hints === */
 .form_hint {
 	background: #d45252;

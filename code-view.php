@@ -14,7 +14,7 @@ if($row = mysqli_fetch_array($result, MYSQLI_NUM))
 {
 	// This can be enabled to make sure SQL is running when the page starts
 	?>
-	<script>alert("SQL ran successfully")</script>
+	<script>//alert("SQL ran successfully")</script>
 	<?php
 }
 else
@@ -23,7 +23,10 @@ else
 	<script>alert("There was an error gettings the exercise")</script>
 	<?php
 }
-
+if(isset($_POST['btn-post']))
+{
+	header("Location: exercise-view.php");
+}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -40,12 +43,8 @@ else
 		<script src="js/modernizr.custom.js"></script>
 		<link rel="shortcut icon" href="images/favicon.ico">
 			
-		 <script type="text/javascript">
-			<?php
-			$lang = $row[3];
-				//echo "editor.session.setMode(\"ace/mode/",$row[3],"\")\;";?>
-			<?php echo "editor.session.setMode(\"ace/mode/$lang\")\;";?>
-			            editor.session.setMode("ace/mode/php")
+		<script>
+			var lang = '<?php echo $row[3]; ?>';
 		</script>
 	</head>
 	<body class="cbp-spmenu-push">
@@ -56,7 +55,7 @@ else
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="#">Learn</a></li>
-                <li><a href="#">Exercises</a></li>
+                <li><a href="exercise-view.php">Exercises</a></li>
                 <li><a href="#">About Us</a></li>
             </ul>
         </div>
@@ -85,6 +84,9 @@ else
 				<li>
 					<h1>Language: <?php echo strtoupper($row[3])?></h1>
 				</li>
+				<li>
+					<button class="submit" name="btn-post" type="submit">Go back to exercises</button>
+				</li>
 			</ul>
 			</div>
 			<div class="codeblock">
@@ -94,14 +96,32 @@ else
 </div>
 				<script src="editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 				<script>
-				    var editor = ace.edit("editor");
-				    //if the line below is set to true, the user will not be able to edit the code block
-				    editor.setReadOnly(true);
-				    //this sets the theme for the editor
-				    editor.setTheme("ace/theme/twilight");
-				    //editor.session.setMode("ace/mode/php");
-				    //this is declared in the script at the top of the page
-				   // editor.session.setMode("ace/mode/+language");
+					var editor = ace.edit("editor");
+					//if the line below is set to true, the user will not be able to edit the code block
+					editor.setReadOnly(true);
+					//this sets the theme for the editor
+					editor.setTheme("ace/theme/twilight");
+					//editor.session.setMode("ace/mode/php");
+					//this is declared in the script at the top of the page
+				       // editor.session.setMode("ace/mode/+language");
+				       if (lang=="php") {
+					    editor.session.setMode("ace/mode/php");
+				       }
+				       else if (lang=="java") {
+					       editor.session.setMode("ace/mode/java");
+				       }
+				       else if (lang=="csharp") {
+					       editor.session.setMode("ace/mode/csharp");
+				       }
+				       else if (lang=="javascript") {
+					       editor.session.setMode("ace/mode/javascript");
+				       }
+				       else if (lang=="css") {
+					       editor.session.setMode("ace/mode/css");
+				       }
+				       else if (lang=="html") {
+					       editor.session.setMode("ace/mode/html");
+				       }
 				</script>
 			</div>
 		</form>

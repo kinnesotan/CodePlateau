@@ -54,7 +54,7 @@ if(isset($_POST['btn-post']))
 			?>
 			<script>alert('Your exercise was successfully entered');</script>
 			<?php
-			//header("Location: code-view.php");
+			header("Location: exercise-view.php");
 		}
 		else
 		{
@@ -109,7 +109,9 @@ if(isset($_POST['btn-post']))
 			}
 			function getCode() {
 				document.getElementById('code').value = editor.getValue(code);
-				alert(editor.getValue(code));
+				//if you enable the code below, it alerts the code being entered
+				//into the database for reference
+					//alert(editor.getValue(code));
 			}
 			
 		</script>
@@ -122,7 +124,7 @@ if(isset($_POST['btn-post']))
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="#">Learn</a></li>
-                <li><a href="#">Exercises</a></li>
+                <li><a href="exercise-view.php">Exercises</a></li>
                 <li><a href="#">About Us</a></li>
             </ul>
         </div>
