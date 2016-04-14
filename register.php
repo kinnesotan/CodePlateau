@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include_once 'includes/dbconnect.php';
 
 if(isset($_POST['btn-signup']))
@@ -15,6 +14,7 @@ if(isset($_POST['btn-signup']))
 		?>
         <script>alert('You successfully registered ');</script>
         <?php
+	header("Location: admin-login.php");
 	}
 	else
 	{
@@ -22,7 +22,6 @@ if(isset($_POST['btn-signup']))
         <script>alert('There was an error while registering you...');</script>
         <?php
 	}
-	header("Location: index.php");
 }
 ?>
 

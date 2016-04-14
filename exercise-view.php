@@ -2,34 +2,9 @@
 session_start();
 include_once("includes/dbconnect.php");
 
-if(isset($_SESSION['user'])!="")
+if(!isset($_SESSION['user']))
 {
-	header("Location: index.php");
-}
-
-if(isset($_POST['btn-login']))
-{
-	$username = mysqli_real_escape_string($con,$_POST['username']);
-	$upass = mysqli_real_escape_string($con,$_POST['pass']);
-	$res = mysqli_query($con,"SELECT * FROM users WHERE username='$username'");
-	$row = mysqli_fetch_array($res);
-	if (!$res)
-	{
-		printf("Error: %s\n", mysqli_error($con));
-		exit();
-	}
-	if($row>0)
-	{
-		$_SESSION[‘user’]= $row['user_id'];
-		header("Location: index.php");
-	}
-	else
-	{
-	?>
-        <script>alert('wrong details');</script>
-	<?php echo "$username $upass"; ?>
-        <?php
-	}
+	header("Location: admin-login.php");
 }
 ?>
 
@@ -89,6 +64,9 @@ if(isset($_POST['btn-login']))
 				?>
 			</form>
 		</table>
+		<?php
+			include_once('logoutbutton.php');
+		?>
         </div>
         <div id="footer">
             <div id="footer-content">

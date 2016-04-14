@@ -1,12 +1,11 @@
 <?php
 session_start();
+include_once 'includes/dbconnect.php';
 
 if(isset($_SESSION['user'])!="")
 {
 	header("Location: index.php");
 }
-
-$con = mysqli_connect("localhost","root","", "codesite");
 
 if(isset($_POST['btn-login']))
 {
@@ -21,7 +20,8 @@ if(isset($_POST['btn-login']))
 	}
 	if($row>0)
 	{
-		$_SESSION[‘user’]= $row['user_id'];
+		$_SESSION['user']= $row['user_id'];
+		$_SESSION['admin'] = $row['is_admin'];
 		header("Location: index.php");
 	}
 	else
@@ -59,7 +59,7 @@ if(isset($_POST['btn-login']))
                 <li><a href="exercise-view.php">Exercises</a></li>
                 <li><a href="#">About Us</a></li>
             </ul>
-        </div>
+	    </div>
         </div>
         <div id="header"></div>
         <div class="main">
