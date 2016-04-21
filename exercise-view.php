@@ -24,18 +24,7 @@ if(!isset($_SESSION['user']))
 	</head>
 	<body class="cbp-spmenu-push">
     <div class="desktop-view">
-        <div id="top-bar">
-            <div id="logo-div"><div id="logo"><a href="index.php"><img src="images/CodePlateauTest.png" alt="Code Plateau logo desktop"width="150" height="38"></a></div></div>
-            <div id="desktop-nav">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Learn</a></li>
-                <li><a href="#">Exercises</a></li>
-                <li><a href="#">About Us</a></li>
-            </ul>
-        </div>
-        </div>
-        <div id="header"></div>
+        <?php include_once('header.php'); ?>
         <div class="main">
 		<table  class="table" style="margin-bottom: 20px; margin-top: 20px;"  align="center" border="1">
 			<form method="post">
@@ -68,12 +57,7 @@ if(!isset($_SESSION['user']))
 			include_once('logoutbutton.php');
 		?>
         </div>
-        <div id="footer">
-            <div id="footer-content">
-                Code Plateau<br/>
-                Dunwoody College of Technology
-            </div>
-        </div> 
+        <?php include_once('footer.php'); ?>
     </div>
 <!-- MOBILE VIEW STARTS HERE -->
     <div class="mobile-view">
@@ -113,12 +97,7 @@ if(!isset($_SESSION['user']))
 					</ul>
 				</form>		
 			</div>
-			    <div id="footer">
-				<div id="footer-content">
-                                    Code Plateau<br/>
-                                    Dunwoody College of Technology
-				</div>
-			    </div>
+			    <?php include_once('footer.php'); ?>
 		</div>
     </div>
 		<!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
