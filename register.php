@@ -2,33 +2,24 @@
 session_start();
 include_once 'includes/dbconnect.php';
 
-if(isset($_SESSION['user'])!="")
+if(isset($_POST['btn-signup']))
 {
-	header("Location: index.php");
-}
-
-if(isset($_POST['btn-login']))
-{
-	$username = mysqli_real_escape_string($con,$_POST['username']);
-	$upass = mysqli_real_escape_string($con,$_POST['pass']);
-	$res = mysqli_query($con,"SELECT * FROM users WHERE username='$username'");
-	$row = mysqli_fetch_array($res);
-	if (!$res)
+	$uname = mysqli_real_escape_string($con, $_POST['uname']);
+	$email = mysqli_real_escape_string($con, $_POST['email']);
+	$upass = mysqli_real_escape_string($con, $_POST['pass']);
+	$upass = md5(mysqli_real_escape_string($con, $_POST['pass']));
+	
+	if(mysqli_query($con, "INSERT INTO users(username,email,password) VALUES('$uname','$email','$upass')"))
 	{
-		printf("Error: %s\n", mysqli_error($con));
-		exit();
-	}
-	if($row>0)
-	{
-		$_SESSION['user']= $row['user_id'];
-		$_SESSION['admin'] = $row['is_admin'];
-		header("Location: index.php");
+		?>
+        <script>alert('You successfully registered ');</script>
+        <?php
+	header("Location: admin-login.php");
 	}
 	else
 	{
-	?>
-        <script>alert('wrong details');</script>
-	<?php echo "$username $upass"; ?>
+		?>
+        <script>alert('There was an error while registering you...');</script>
         <?php
 	}
 }
@@ -50,7 +41,18 @@ if(isset($_POST['btn-login']))
 	</head>
 	<body class="cbp-spmenu-push">
     <div class="desktop-view">
-        <?php include_once('header.php'); ?>
+        <div id="top-bar">
+            <div id="logo-div"><div id="logo"><a href="index.php"><img src="images/CodePlateauTest.png" alt="Code Plateau logo desktop"width="150" height="38"></a></div></div>
+            <div id="desktop-nav">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Learn</a></li>
+                <li><a href="exercise-view.php">Exercises</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </div>
+        </div>
+        <div id="header"></div>
         <div class="main">
 		<form class="login-form" method="post"  name="login-form">
 			<ul>
@@ -59,20 +61,32 @@ if(isset($_POST['btn-login']))
 				<span class="required_notification">*Denotes required field</span>
 			    </li>
 			    <li>
-				<label for="name">Username:</label>
-				<input type="text" name="username" placeholder="Your username" required />
+				<label for="email">Email:</label>
+				<input type="text" name="email" placeholder="Your email" required />
 			    </li>
 			    <li>
-				<label for="email">Password:</label>
+				<label for="name">Username:</label>
+				<input type="text" name="uname" placeholder="Your username" required />
+			    </li>
+			    <li>
+				<label for="password">Password:</label>
 				<input type="password" name="pass" placeholder="Your password" required />
 			    </li>
 			    <li>
-				<button class="submit" name="btn-login" type="submit">Submit</button>
+				<button class="submit" name="btn-signup" type="submit">Sign Me Up</button>
+			    </li>
+			    <li>
+				<a href="admin-login.php">Already a member? Sign In Here</a>
 			    </li>
 			</ul>
 		</form>
         </div>
-        <?php include_once('footer.php'); ?> 
+        <div id="footer">
+            <div id="footer-content">
+                Code Plateau<br/>
+                Dunwoody College of Technology
+            </div>
+        </div> 
     </div>
 <!-- MOBILE VIEW STARTS HERE -->
     <div class="mobile-view">

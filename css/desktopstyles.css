@@ -143,6 +143,7 @@ div.lan-image-3 :hover {
     margin-top: -20px;
     margin-bottom: 100px;
     overflow-y: scroll;
+    font-size: 1.1em;
 }
 Select {
     width: 92.5%;
@@ -232,13 +233,20 @@ body {font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", san
 .exercise-form li:first-child, .exercise-form li:last-child {
 	
 }
+#input-text {
+    font-weight: bold;
+    font-size: 1.5em;
+}
 .exercise-form h1 {
     text-align: center;
     width: 95%;
 }
+.exercise-form textarea {
+    font-size: 1.1em;
+}
 label {
     font-size: 1.5em;
-    margin: 5px;
+    margin: 5px 0;
 }
 
 /* === Form Header === */
@@ -395,7 +403,17 @@ textarea {
         -o-transition: padding .25s;
         transition: padding .25s;
 }
-
+.login-form ul li a:hover {
+    color: #c16100;
+    font-weight: bold;
+}
+.login-form ul li a:visited {
+    color: #d56a00;
+}
+.login-form ul li a:link {
+    text-decoration: none;
+    color: #d56a00;
+}
 /* === Form hints === */
 .form_hint {
 	background: #d45252;
@@ -457,4 +475,37 @@ button.submit:active {
 	-ms-box-shadow: 0 0 10px 5px #c16100 inset;
 	-o-box-shadow: 0 0 10px 5px #c16100 inset;
 	
+}
+button.submit a {
+    color: white;
+    text-decoration: none;
+}
+button.submit a:hover {
+    color: white;
+}
+button.submit a:visited {
+    color: white;
+}
+/* STYLES FOR EXERCISE TABLE */
+.table th, td {
+    padding: 10px;
+}
+.table {
+    border: solid thin black;
+    border-spacing: 0;
+}
+.table th {
+    background-color: #393939;
+}
+.table a:link {
+    text-decoration: none;
+    color: #d56a00;
+}
+.table a:visited {
+    color: #d56a00;
+}
+.table a:hover {
+    color: #c16100;
+    font-weight: bold;
+    font-size: 1.1em;
 }

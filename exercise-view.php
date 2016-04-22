@@ -1,36 +1,10 @@
 <?php
 session_start();
-include_once 'includes/dbconnect.php';
+include_once("includes/dbconnect.php");
 
-if(isset($_SESSION['user'])!="")
+if(!isset($_SESSION['user']))
 {
-	header("Location: index.php");
-}
-
-if(isset($_POST['btn-login']))
-{
-	$username = mysqli_real_escape_string($con,$_POST['username']);
-	$upass = mysqli_real_escape_string($con,$_POST['pass']);
-	$res = mysqli_query($con,"SELECT * FROM users WHERE username='$username'");
-	$row = mysqli_fetch_array($res);
-	if (!$res)
-	{
-		printf("Error: %s\n", mysqli_error($con));
-		exit();
-	}
-	if($row>0)
-	{
-		$_SESSION['user']= $row['user_id'];
-		$_SESSION['admin'] = $row['is_admin'];
-		header("Location: index.php");
-	}
-	else
-	{
-	?>
-        <script>alert('wrong details');</script>
-	<?php echo "$username $upass"; ?>
-        <?php
-	}
+	header("Location: admin-login.php");
 }
 ?>
 
@@ -41,7 +15,7 @@ if(isset($_POST['btn-login']))
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-		<title>Login | Code Plateau</title>
+		<title>View All Exercises | Code Plateau</title>
 		<link rel="stylesheet" media="(min-width: 1000px)" href="css/desktopstyles.css" />
 		<link rel="stylesheet" media="(max-width: 999px)" href="css/mobileview.css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,27 +26,38 @@ if(isset($_POST['btn-login']))
     <div class="desktop-view">
         <?php include_once('header.php'); ?>
         <div class="main">
-		<form class="login-form" method="post"  name="login-form">
-			<ul>
-			    <li>
-				<h2>Login</h2>
-				<span class="required_notification">*Denotes required field</span>
-			    </li>
-			    <li>
-				<label for="name">Username:</label>
-				<input type="text" name="username" placeholder="Your username" required />
-			    </li>
-			    <li>
-				<label for="email">Password:</label>
-				<input type="password" name="pass" placeholder="Your password" required />
-			    </li>
-			    <li>
-				<button class="submit" name="btn-login" type="submit">Submit</button>
-			    </li>
-			</ul>
-		</form>
+		<table  class="table" style="margin-bottom: 20px; margin-top: 20px;"  align="center" border="1">
+			<form method="post">
+				<?php
+					echo "<th>Exercise Title</th>";
+					echo "<th>Language</th>";
+					echo "<th>View Exercise</th>";
+					echo "<th>Remove Exercise</th>";
+					echo "<th>Edit Exercise</th>";
+					$result = mysqli_query($con,"SELECT * FROM exercise ORDER by exercise_id");
+					while($test = mysqli_fetch_array($result))
+					{
+					    $langname = $test["language"];
+					    $id = $test['exercise_id'];
+					    echo "<tr align='center'>";
+					    echo "<td>". $test['title']. "</td>";
+					    echo "<td>". strtoupper($langname). "</td>";
+					    //View exercise
+					    echo "<td><a href='code-view.php?id=$id'>View</a></td>";
+					    //Delete records
+					    echo "<td><a href='delete.php?id=$id'>Remove</a></td>";
+					    //Edit records
+					    echo "<td><a href='code-edit.php?id=$id'>Edit</a></td>";
+					    echo "</tr>";
+					}
+				?>
+			</form>
+		</table>
+		<?php
+			include_once('logoutbutton.php');
+		?>
         </div>
-        <?php include_once('footer.php'); ?> 
+        <?php include_once('footer.php'); ?>
     </div>
 <!-- MOBILE VIEW STARTS HERE -->
     <div class="mobile-view">
@@ -112,12 +97,7 @@ if(isset($_POST['btn-login']))
 					</ul>
 				</form>		
 			</div>
-			    <div id="footer">
-				<div id="footer-content">
-                                    Code Plateau<br/>
-                                    Dunwoody College of Technology
-				</div>
-			    </div>
+			    <?php include_once('footer.php'); ?>
 		</div>
     </div>
 		<!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->

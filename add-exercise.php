@@ -6,26 +6,39 @@ if(!isset($_SESSION['user']))
 {
 	header("Location: index.php");
 }
-$id = $_REQUEST['id'];
-$result = mysqli_query($con,"SELECT exercise_id, title, content, language, code FROM exercise WHERE exercise_id = $id");
-
-
-if($row = mysqli_fetch_array($result, MYSQLI_NUM))
-{
-	// This can be enabled to make sure SQL is running when the page starts
-	?>
-	<script>//alert("SQL ran successfully")</script>
-	<?php
-}
-else
-{
-	?>
-	<script>alert("There was an error gettings the exercise")</script>
-	<?php
-}
 if(isset($_POST['btn-post']))
 {
-	header("Location: exercise-view.php");
+	#DECLARE PHP VARIABLES FOR CONTENT
+	$title = mysqli_real_escape_string($con,$_POST["title"]);
+	$content = mysqli_real_escape_string($con,$_POST["content"]);
+	$code = mysqli_real_escape_string($con,$_POST["code"]);
+	$language = mysqli_real_escape_string($con,$_POST["language"]);
+	
+	#IF NO LANGUAGE IS SELECTED, THROW ERROR
+	if($_POST["language"] == "" )
+	{
+		?>
+		<script>alert('Please select the language for this exercise...');</script>
+		<?php
+	}
+	else
+	{
+		if(mysqli_query($con,"INSERT INTO exercise(title,content,code,language) VALUES('$title','$content','$code','$language')"))
+		{
+			?>
+			<script>alert('Your exercise was successfully entered');</script>
+			<?php
+			header("Location: exercise-view.php");
+		}
+		else
+		{
+			echo mysql_errno($link) . ": " . mysql_error($link) . "\n";
+			?>
+			<script>alert('There was an error while submitting your exercise...');</script>
+			<?php
+		}
+	}
+
 }
 ?>
 
@@ -36,15 +49,45 @@ if(isset($_POST['btn-post']))
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-		<title>Code Viewer | Code Plateau</title>
+		<title>Code Editor | Code Plateau</title>
 		<link rel="stylesheet" media="(min-width: 1000px)" href="css/desktopstyles.css" />
 		<link rel="stylesheet" media="(max-width: 999px)" href="css/mobileview.css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="js/modernizr.custom.js"></script>
 		<link rel="shortcut icon" href="images/favicon.ico">
 			
-		<script>
-			var lang = '<?php echo $row[3]; ?>';
+		 <script>
+			var code = document.getElementById("editor");
+			editor.getValue(code);
+			
+			function langMode() {
+				var mode=document.getElementById("select");
+				if (mode.value=="php") {
+					 editor.session.setMode("ace/mode/php");
+				}
+				else if (mode.value=="java") {
+					editor.session.setMode("ace/mode/java");
+				}
+				else if (mode.value=="csharp") {
+					editor.session.setMode("ace/mode/csharp");
+				}
+				else if (mode.value=="javascript") {
+					editor.session.setMode("ace/mode/javascript");
+				}
+				else if (mode.value=="css") {
+					editor.session.setMode("ace/mode/css");
+				}
+				else if (mode.value=="html") {
+					editor.session.setMode("ace/mode/html");
+				}	
+			}
+			function getCode() {
+				document.getElementById('code').value = editor.getValue(code);
+				//if you enable the code below, it alerts the code being entered
+				//into the database for reference
+					//alert(editor.getValue(code));
+			}
+			
 		</script>
 	</head>
 	<body class="cbp-spmenu-push">
@@ -60,64 +103,59 @@ if(isset($_POST['btn-post']))
 			<ul>
 				<li>
 					<label for="title">Title:</label>
-						<?php echo '<input type="text" id="input-text" name="title" value="'.$row[1].'" readonly />'; ?>
+					<input id="title" type="text" name="title" placeholder="Exercise title..." required />
 					<input type="hidden" name="code" id="code" value="";/>
 				</li>
 				<li>
 					<label for="content">Content:</label>
-					<textarea name="content" placeholder="Enter supplemental text here..." cols="40" rows="6" readonly>
-<?php echo $row[2]; ?>
-					</textarea>
-					
+					<textarea name="content" placeholder="Enter supplemental text here..." cols="40" rows="6" required></textarea>
 				</li>
 				<li>
-					<h1>Language: <?php echo strtoupper($row[3])?></h1>
+					<div class="select">
+						<select id="select" name="language" onchange="langMode()">
+							<option value="">Select Language</option>
+							<option value="php">PHP</option>
+							<option value="java">Java</option>
+							<option value="csharp">C#</option>
+							<option value="javascript">JavaScript</option>
+							<option value="css">CSS</option>
+							<option value="html">HTML</option>
+							<option value="sql">SQL</option>
+						</select>
+					</div>
 				</li>
 				<li>
-					<button class="submit" name="btn-post" type="submit">Go back to exercises</button>
+				<button class="submit" name="btn-post" onclick="getCode();" type="submit">Submit Exercise</button>	
 				</li>
-			</ul>
+			</ul>			
 			</div>
 			<div class="codeblock">
 <div id="editor" name="code">
-<!-- PHP codeblock to display in code editor -->
-<?php echo '<pre>'. htmlspecialchars($row[4]) . '</pre>'; ?>
+<?php
+echo "<pre>";
+
+echo "</pre>";
+?>
 </div>
 				<script src="editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 				<script>
-					var editor = ace.edit("editor");
-					//if the line below is set to true, the user will not be able to edit the code block
-					editor.setReadOnly(true);
-					//this sets the theme for the editor
-					editor.setTheme("ace/theme/twilight");
-					//editor.session.setMode("ace/mode/php");
-					//this is declared in the script at the top of the page
-				       // editor.session.setMode("ace/mode/+language");
-				       if (lang=="php") {
-					    editor.session.setMode("ace/mode/php");
-				       }
-				       else if (lang=="java") {
-					       editor.session.setMode("ace/mode/java");
-				       }
-				       else if (lang=="csharp") {
-					       editor.session.setMode("ace/mode/csharp");
-				       }
-				       else if (lang=="javascript") {
-					       editor.session.setMode("ace/mode/javascript");
-				       }
-				       else if (lang=="css") {
-					       editor.session.setMode("ace/mode/css");
-				       }
-				       else if (lang=="html") {
-					       editor.session.setMode("ace/mode/html");
-				       }
+				    var editor = ace.edit("editor");
+				    //if the line below is set to true, the user will not be able to edit the code block
+				    //editor.setReadOnly(true);
+				    //this sets the theme for the editor
+				    editor.setTheme("ace/theme/twilight");
+				    //this is declared in the script at the top of the page
+				   // editor.session.setMode("ace/mode/+language");
 				</script>
 			</div>
+		<script>
+			document.write(editor.getValue(code));
+		</script>
 		</form>
 		<!-- Code editor ends here -->
 	</div>
 	<!-- main page content ends here -->
-        <?php include_once('footer.php'); ?> 
+        <?php include_once('footer.php'); ?>
     </div>
 <!-- MOBILE VIEW STARTS HERE -->
     <div class="mobile-view">
@@ -180,7 +218,9 @@ if(isset($_POST['btn-post']))
 				classie.toggle( menuLeft, 'cbp-spmenu-open' );
 				disableOther( 'showLeftPush' );
 			};
-		</script>	
+		</script>
+		
+		
         </div>
 <!-- MOBILE CONTENT ENDS HERE -->
     </div>

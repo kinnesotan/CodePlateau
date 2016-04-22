@@ -1,5 +1,5 @@
 <?php
-$mysqli = new mysqli("localhost", "root", "", "codesite");
+$con = new mysqli("localhost", "root", "", "codesite");
 
 /* check connection */
 if (mysqli_connect_errno()) {
