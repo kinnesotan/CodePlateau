@@ -163,9 +163,8 @@ if(isset($_POST['btn-post']))
 						</select>
 					</div>
 				</li>
-				
 				<li>
-				<button class="submit" name="btn-post" value="Upload File" onclick="getCode();" type="submit">Submit Exercise</button>	
+				<button class="submit" name="btn-post" onclick="getCode();" type="submit">Submit Exercise</button>	
 				</li>
 			</ul>			
 			</div>
@@ -192,11 +191,6 @@ echo "</pre>";
 		<script>
 			document.write(editor.getValue(code));
 		</script>
-		</form>
-		<form action="upload.php" method="post" enctype="multipart/form-data">
-					Select file to upload:
-					<input type="file" name="fileToUpload" id="fileToUpload">
-					<input type="submit" value="Upload File" name="submit">
 		</form>
 		<!-- Code editor ends here -->
 	</div>
