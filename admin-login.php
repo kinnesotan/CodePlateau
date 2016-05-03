@@ -21,8 +21,17 @@ if(isset($_POST['btn-login']))
 	if($row>0)
 	{
 		$_SESSION['user']= $row['user_id'];
+		//header("Location: index.php");
 		$_SESSION['admin'] = $row['is_admin'];
-		header("Location: index.php");
+		echo $_SESSION['admin'];
+		if($_SESSION['admin'] == 1)
+		{
+				header("Location: exercise-view.php");
+		}
+		else
+		{
+				echo "YOU ARE NOT ADMIN BITCH";
+		}
 	}
 	else
 	{
