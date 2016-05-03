@@ -38,6 +38,7 @@ else
 				<?php
 					echo "<th>Exercise Title</th>";
 					echo "<th>Language</th>";
+					echo "<th>Support File</th>";
 					echo "<th>View Exercise</th>";
 					echo "<th>Remove Exercise</th>";
 					echo "<th>Edit Exercise</th>";
@@ -45,10 +46,12 @@ else
 					while($test = mysqli_fetch_array($result))
 					{
 					    $langname = $test["language"];
+					    $file_name = $test["support_file"];
 					    $id = $test['exercise_id'];
 					    echo "<tr align='center'>";
 					    echo "<td>". $test['title']. "</td>";
 					    echo "<td>". strtoupper($langname). "</td>";
+					    echo "<td>". strtoupper($file_name). "</td>";
 					    //View exercise
 					    echo "<td><a href='code-view.php?id=$id'>View</a></td>";
 					    //Delete records
@@ -63,6 +66,7 @@ else
 		<?php
 			include_once('logoutbutton.php');
 		?>
+		<a href="add-exercise.php">ADD MORE EXERCISES</a>
         </div>
         <?php include_once('footer.php'); ?>
     </div>

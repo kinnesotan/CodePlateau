@@ -8,7 +8,7 @@ if(!isset($_SESSION['user']))
 }
 
 $id = $_REQUEST['id'];
-$result = mysqli_query($con,"SELECT exercise_id, title, content, language, code FROM exercise WHERE exercise_id = $id");
+$result = mysqli_query($con,"SELECT exercise_id, title, content, language, code, support_file FROM exercise WHERE exercise_id = $id");
 
 if($row = mysqli_fetch_array($result, MYSQLI_NUM))
 {

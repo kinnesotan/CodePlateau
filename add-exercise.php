@@ -13,7 +13,10 @@ if(isset($_POST['btn-post']))
 	$content = mysqli_real_escape_string($con,$_POST["content"]);
 	$code = mysqli_real_escape_string($con,$_POST["code"]);
 	$language = mysqli_real_escape_string($con,$_POST["language"]);
-	
+	$support_file = mysqli_real_escape_string($con,$_POST["support_file"]);
+	$target_dir = "uploads/";
+	$target_file = $target_dir . basename($_FILES["up_file"]["name"]);
+
 	#IF NO LANGUAGE IS SELECTED, THROW ERROR
 	if($_POST["language"] == "" )
 	{
@@ -23,8 +26,9 @@ if(isset($_POST['btn-post']))
 	}
 	else
 	{
-		if(mysqli_query($con,"INSERT INTO exercise(title,content,code,language) VALUES('$title','$content','$code','$language')"))
+		if(mysqli_query($con,"INSERT INTO exercise(title,content,code,language,support_file) VALUES('$title','$content','$code','$language','$support_file')"))
 		{
+			move_uploaded_file ( $_FILES["up_file"]["tmp_name"], "upload/" . $_FILES["up_file"]["name"] );
 			?>
 			<script>alert('Your exercise was successfully entered');</script>
 			<?php
@@ -125,6 +129,11 @@ if(isset($_POST['btn-post']))
 					</div>
 				</li>
 				<li>
+					<label for="support_file">File Name:</label>
+					<input id="support_file" type="text" name="support_file" placeholder="File Name"></input><br>
+					<input type="file" name="up_file" id="file"><br>
+				</li>
+				<li>
 				<button class="submit" name="btn-post" onclick="getCode();" type="submit">Submit Exercise</button>	
 				</li>
 			</ul>			
@@ -189,6 +198,9 @@ echo "</pre>";
 			</select>
 		</div>
 		
+
+			<label for="support_file">File Name:</label>
+			<input id="support_file" type="text" name="title" placeholder="File Name"></input>
 				<!-- Code editor starts here -->
 		<div class="codeblock">	
 			
