@@ -11,38 +11,23 @@ if(isset($_POST['btn-post']))
 	#DECLARE PHP VARIABLES FOR CONTENT
 	$title = mysqli_real_escape_string($con,$_POST["title"]);
 	$content = mysqli_real_escape_string($con,$_POST["content"]);
-	$code = mysqli_real_escape_string($con,$_POST["code"]);
-	$language = mysqli_real_escape_string($con,$_POST["language"]);
-	$support_file = mysqli_real_escape_string($con,$_POST["support_file"]);
-	$target_dir = "uploads/";
-	$target_file = $target_dir . basename($_FILES["up_file"]["name"]);
 
-	#IF NO LANGUAGE IS SELECTED, THROW ERROR
-	if($_POST["language"] == "" )
-	{
-		?>
-		<script>alert('Please select the language for this exercise...');</script>
-		<?php
-	}
-	else
-	{
-		if(mysqli_query($con,"INSERT INTO exercise(title,content,code,language,support_file) VALUES('$title','$content','$code','$language','$support_file')"))
+
+
+
+		if(mysqli_query($con,"INSERT INTO concept(concept_name,concept_text) VALUES('$title','$content')"))
 		{
-			move_uploaded_file ( $_FILES["up_file"]["tmp_name"], "upload/" . $_FILES["up_file"]["name"] );
 			?>
-			<script>alert('Your exercise was successfully entered');</script>
+			<script>alert('Your concept was successfully entered');</script>
 			<?php
 			header("Location: exercise-view.php");
 		}
 		else
 		{
-			echo mysql_errno($link) . ": " . mysql_error($link) . "\n";
 			?>
-			<script>alert('There was an error while submitting your exercise...');</script>
+			<script>alert('There was an error while submitting your concept...');</script>
 			<?php
 		}
-	}
-
 }
 ?>
 
@@ -53,61 +38,28 @@ if(isset($_POST['btn-post']))
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-		<title>Code Editor | Code Plateau</title>
+		<title>Concept Editor | Code Plateau</title>
 		<link rel="stylesheet" media="(min-width: 1000px)" href="css/desktopstyles.css" />
 		<link rel="stylesheet" media="(max-width: 999px)" href="css/mobileview.css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="js/modernizr.custom.js"></script>
 		<link rel="shortcut icon" href="images/favicon.ico">
 			
-		 <script>
-			var code = document.getElementById("editor");
-			editor.getValue(code);
-			
-			function langMode() {
-				var mode=document.getElementById("select");
-				if (mode.value=="php") {
-					 editor.session.setMode("ace/mode/php");
-				}
-				else if (mode.value=="java") {
-					editor.session.setMode("ace/mode/java");
-				}
-				else if (mode.value=="csharp") {
-					editor.session.setMode("ace/mode/csharp");
-				}
-				else if (mode.value=="javascript") {
-					editor.session.setMode("ace/mode/javascript");
-				}
-				else if (mode.value=="css") {
-					editor.session.setMode("ace/mode/css");
-				}
-				else if (mode.value=="html") {
-					editor.session.setMode("ace/mode/html");
-				}	
-			}
-			function getCode() {
-				document.getElementById('code').value = editor.getValue(code);
-				//if you enable the code below, it alerts the code being entered
-				//into the database for reference
-					//alert(editor.getValue(code));
-			}
-			
-		</script>
 	</head>
 	<body class="cbp-spmenu-push">
     <div class="desktop-view">
         <?php include_once('header.php'); ?>
 	
 	<!-- main page content begins here: Code editor, content, exercises, etc. -->
-        <div class="main">
+        <div class="concept-main">
 		<!-- Select the type of language for the user to enable in the code block -->
 		<!-- Code editor starts here -->
 		<form method="post" class="exercise-form" name="exercise-form">
-			<div id="exercise-text">
+			
 			<ul>
 				<li>
 					<label for="title">Title:</label>
-					<input id="title" type="text" name="title" placeholder="Exercise title..." required />
+					<input id="title" type="text" name="title" placeholder="Concept title..." required />
 					<input type="hidden" name="code" id="code" value="";/>
 				</li>
 				<li>
@@ -115,63 +67,9 @@ if(isset($_POST['btn-post']))
 					<textarea name="content" placeholder="Enter supplemental text here..." cols="40" rows="6" required></textarea>
 				</li>
 				<li>
-					<div class="select">
-						<select id="select" name="language" onchange="langMode()">
-							<option value="">Select Language</option>
-							<option value="php">PHP</option>
-							<option value="java">Java</option>
-							<option value="csharp">C#</option>
-							<option value="javascript">JavaScript</option>
-							<option value="css">CSS</option>
-							<option value="html">HTML</option>
-							<option value="sql">SQL</option>
-						</select>
-					</div>
-					<div class="select">
-						<select id="select" name="language" onchange="langMode()">
-							<option value="">Select Concept</option>
-							<option value="php">PHP</option>
-							<option value="java">Java</option>
-							<option value="csharp">C#</option>
-							<option value="javascript">JavaScript</option>
-							<option value="css">CSS</option>
-							<option value="html">HTML</option>
-							<option value="sql">SQL</option>
-						</select>
-					</div>
-				</li>
-				<li>
-					<label for="support_file">File Name:</label>
-					<input id="support_file" type="text" name="support_file" placeholder="File Name"></input><br>
-					<input type="file" name="up_file" id="file"><br>
-				</li>
-				<li>
-				<button class="submit" name="btn-post" onclick="getCode();" type="submit">Submit Exercise</button>	
+				<button class="submit" name="btn-post" type="submit">Submit Concept</button>	
 				</li>
 			</ul>			
-			</div>
-			<div class="codeblock">
-<div id="editor" name="code">
-<?php
-echo "<pre>";
-
-echo "</pre>";
-?>
-</div>
-				<script src="editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-				<script>
-				    var editor = ace.edit("editor");
-				    //if the line below is set to true, the user will not be able to edit the code block
-				    //editor.setReadOnly(true);
-				    //this sets the theme for the editor
-				    editor.setTheme("ace/theme/twilight");
-				    //this is declared in the script at the top of the page
-				   // editor.session.setMode("ace/mode/+language");
-				</script>
-			</div>
-		<script>
-			document.write(editor.getValue(code));
-		</script>
 		</form>
 		<!-- Code editor ends here -->
 	</div>
