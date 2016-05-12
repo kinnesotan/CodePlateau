@@ -33,11 +33,97 @@ if(isset($_POST['btn-post']))
 		else
 		{
 			echo mysql_errno($link) . ": " . mysql_error($link) . "\n";
+			var_dump($_FILES);
 			?>
 			<script>alert('There was an error while submitting your exercise...');</script>
 			<?php
 		}
 	}
+
+	
+	$support_file = mysqli_real_escape_string($con,$_POST["support_file"]);
+	$file=$_FILES["file"]["name"];
+	$size= $_FILES["file"]["size"];
+	
+	
+ 
+//Checking if 'image name' entered and 'File attachment' has been done.
+if( empty($iname) || empty($file))
+{
+	echo "<label class='err'>All field is required</label>";
+}
+	
+// Checking the File Size. Maximum allowed size: 500,000 bytes (500 kb)	
+elseif($size >500000)
+{
+	echo "<label class='err'> Image size must not greater than 500kb </label>";
+}
+
+
+	
+/* -- Few preparations for Checking 
+         the File Type (extension) -- */
+
+//Store the allowed extensions in an array	
+$allowedExts = array("gif", "jpeg", "jpg", "png"); 
+
+/* using explode() function, separate the 'File Name' 
+and its 'Extension' into individual elements of an array: $temp */
+$temp = explode(".", $_FILES["file"]["name"]); 
+
+/* The end() function returns the last element iof an array.
+As per array $temp, First element: File name 
+					 Last element: Extension */	
+$extension = end($temp); 
+
+/* -- Checking the File Type (extension) -- */	
+if ((($_FILES["file"]["type"] == "image/gif")
+|| ($_FILES["file"]["type"] == "image/jpeg")
+|| ($_FILES["file"]["type"] == "image/jpg")
+|| ($_FILES["file"]["type"] == "image/pjpeg")
+|| ($_FILES["file"]["type"] == "image/x-png")
+|| ($_FILES["file"]["type"] == "image/txt")
+|| ($_FILES["file"]["type"] == "image/png"))
+&& ($_FILES["file"]["size"] <= 500000)
+&& in_array($extension, $allowedExts)) 
+/* The in_array() searches for a specific value in an array.
+Here, searches for $extension value in $allowedExts array */
+{ 
+/*If file is of allowed extension type, then further 
+ validations for file are processed. */
+	
+	
+	
+// Checks if any error
+if ($_FILES["file"]["error"] > 0) 
+  {
+	echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+  } 
+
+//Checks if the specific file already exists in the directory.		  
+elseif (file_exists("upload/" . $_FILES["file"]["name"])) 
+  {
+	echo $_FILES["file"]["name"] . "Image upload already exist. ";
+  } 
+
+/* On passing all validations, the file is moved from 
+temporary location to the directory. */
+else
+  {
+    /* The move_uploaded_file() function moves an 
+	    uploaded file to a new location. */
+	move_uploaded_file ( $_FILES["file"]["tmp_name"],
+					     "upload/" . $_FILES["file"]["name"] );
+						 
+	// Insert the 'Image name' and 'File Name' to the database					 
+	mysqli_query($con,"INSERT INTO Amalan (iname, filename)
+									VALUES ('$iname', '$file')");
+									
+	echo "Data Entered Successfully Saved!";
+   }
+}
+mysqli_close($con); //Close the Database Connection
+
 
 }
 ?>
@@ -98,7 +184,7 @@ if(isset($_POST['btn-post']))
         <div class="main">
 		<!-- Select the type of language for the user to enable in the code block -->
 		<!-- Code editor starts here -->
-		<form method="post" class="exercise-form" name="exercise-form">
+		<form method="post" class="exercise-form" name="exercise-form" action="add-exercise.php">
 			<div id="exercise-text">
 			<ul>
 				<li>
