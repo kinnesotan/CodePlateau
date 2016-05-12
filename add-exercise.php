@@ -13,6 +13,10 @@ if(isset($_POST['btn-post']))
 	$content = mysqli_real_escape_string($con,$_POST["content"]);
 	$code = mysqli_real_escape_string($con,$_POST["code"]);
 	$language = mysqli_real_escape_string($con,$_POST["language"]);
+	$concept=mysqli_real_escape_string($con, $_POST["concept"]);
+	$lvl=mysqli_real_escape_string($con, $_POST["lvl"]);
+
+	$language=mysqli_query($con, "Select languge_id from language where language_name=$language");
 
 	#IF NO LANGUAGE IS SELECTED, THROW ERROR
 	if($_POST["language"] == "" )
@@ -147,7 +151,7 @@ mysqli_close($con); //Close the Database Connection
 			editor.getValue(code);
 			
 			function langMode() {
-				var mode=document.getElementById("select");
+				var mode=document.getElementById("selectlang");
 				if (mode.value=="php") {
 					 editor.session.setMode("ace/mode/php");
 				}
@@ -198,15 +202,52 @@ mysqli_close($con); //Close the Database Connection
 				</li>
 				<li>
 					<div class="select">
-						<select id="select" name="language" onchange="langMode()">
+						<select id="selectlang" name="language" onchange="langMode()">
 							<option value="">Select Language</option>
-							<option value="php">PHP</option>
-							<option value="java">Java</option>
-							<option value="csharp">C#</option>
-							<option value="javascript">JavaScript</option>
-							<option value="css">CSS</option>
-							<option value="html">HTML</option>
-							<option value="sql">SQL</option>
+							<?php
+								$result=mysqli_query($con,"Select * from language");
+								while($test=mysqli_fetch_assoc($result))
+								{
+									$language_id=$test['language_id'];
+									$language_name=$test['language_name'];
+
+									echo "<option value='".$language_name."'>$language_name</option>";
+								}
+							  ?>
+						</select>
+					</div>
+				</li>
+				<li>
+					<div class="select">
+						<select id="selectconcept" name="concept" onchange="langMode()">
+							<option value="">Select Concept</option>
+							<?php
+							$result=mysqli_query($con,"Select * from concept");
+								while($test=mysqli_fetch_assoc($result))
+								{
+									$concept_id=$test['concept_id'];
+									$concept_name=$test['concept_name'];
+
+									echo "<option value='".$concept_id."'>$concept_name</option>";
+								}
+							?>
+						</select>
+					</div>
+				</li>
+				<li>
+					<div class="select">
+						<select id="selectlvl" name="lvl" onchange="langMode()">
+							<option value="">Select level</option>
+							<?php
+							$result=mysqli_query($con,"Select * from level");
+								while($test=mysqli_fetch_assoc($result))
+								{
+									$level_id=$test['level_id'];
+									$level_name=$test['level_name'];
+
+									echo "<option value='".$level_id."'>$level_name</option>";
+								}
+							?>
 						</select>
 					</div>
 				</li>
@@ -243,7 +284,7 @@ echo "</pre>";
 	<!-- main page content ends here -->
         <?php include_once('footer.php'); ?>
     </div>
-<!-- MOBILE VIEW STARTS HERE -->
+<!-- MOBILE VIEW STARTS HERE 
     <div class="mobile-view">
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
             <h3>Welcome!</h3>
@@ -261,7 +302,7 @@ echo "</pre>";
                         </div>
 			<div id="header"></div>
 			<div class="main">
-				<!-- Select the type of language for the user to enable in the code block -->
+				Select the type of language for the user to enable in the code block
 		<div class="select">
 			<select id="select" onchange="langMode()">
 				<option>Select Language</option>
@@ -278,12 +319,12 @@ echo "</pre>";
 
 			<label for="support_file">File Name:</label>
 			<input id="support_file" type="text" name="title" placeholder="File Name"></input>
-				<!-- Code editor starts here -->
+				 Code editor starts here 
 		<div class="codeblock">	
 			
 			
 		</div>
-		<!-- Code editor ends here -->
+		<!-- Code editor ends here 
                             		
 			</div>
 			    <div id="footer">
@@ -294,7 +335,7 @@ echo "</pre>";
 			    </div>
 		</div>
     </div>
-		<!-- Classie - class helper functions by @desandro https://github.com/desandro/classie -->
+		 Classie - class helper functions by @desandro https://github.com/desandro/classie 
 		<script src="js/classie.js"></script>
 		<script>
 			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
