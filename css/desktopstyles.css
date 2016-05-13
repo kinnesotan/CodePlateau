@@ -486,6 +486,55 @@ button.submit a:hover {
 button.submit a:visited {
     color: white;
 }
+input.submit {
+	background-color: #d56a00;
+	background: -webkit-gradient(linear, left top, left bottom, from(#d56a00), to(#c16100));
+	background: -webkit-linear-gradient(top, #d56a00, #c16100);
+	background: -moz-linear-gradient(top, #d56a00, #c16100);
+	background: -ms-linear-gradient(top, #d56a00, #c16100);
+	background: -o-linear-gradient(top, #d56a00, #c16100);
+	background: linear-gradient(top, #d56a00, #c16100);
+	border: 1px solid #c16100;
+	border-bottom: 1px solid #c16100;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	box-shadow: inset 0 1px 0 0 #c66300;
+	-webkit-box-shadow: 0 1px 0 0 #f97c00 inset ;
+	-moz-box-shadow: 0 1px 0 0 #f97c00 inset;
+	-ms-box-shadow: 0 1px 0 0 #f97c00 inset;
+	-o-box-shadow: 0 1px 0 0 #f97c00 inset;
+	color: white;
+	font-weight: bold;
+	padding: 6px 20px;
+	text-align: center;
+	text-shadow: 0 -1px 0 #c16100;
+}
+input.submit:hover {
+	opacity:.85;
+	cursor: pointer; 
+}
+input.submit:active {
+	border: 1px solid #d56a00;
+	box-shadow: 0 0 10px 5px #c16100 inset; 
+	-webkit-box-shadow:0 0 10px 5px #c16100 inset ;
+	-moz-box-shadow: 0 0 10px 5px #c16100 inset;
+	-ms-box-shadow: 0 0 10px 5px #c16100 inset;
+	-o-box-shadow: 0 0 10px 5px #c16100 inset;
+	
+}
+input.submit a {
+    color: white;
+    text-decoration: none;
+}
+input.submit a:hover {
+    color: white;
+}
+input.submit a:visited {
+    color: white;
+}
 /* STYLES FOR EXERCISE TABLE */
 .table th, td {
     padding: 10px;

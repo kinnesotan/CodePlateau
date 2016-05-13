@@ -49,8 +49,8 @@ if(isset($_POST['add']))
 	<body class="cbp-spmenu-push">
     <div class="desktop-view">
         <?php include_once('header.php'); ?>
-        <div class="main">
-        <h2>associate exercise with concept</h2>
+        <div class="main" style="text-align: center;">
+        <h2>Associate an exercise with a concept</h2>
 		<form method="post">
 			<div class="select">
 						<select id="selectconcept" name="concept" >
@@ -83,19 +83,14 @@ if(isset($_POST['add']))
 						
 					</select>
 			</div>
-					<input type="submit" name="associate" value="associate" />
+					<input class="submit" type="submit" name="associate" value="Associate" />
 		</form></br>
 		<h2>Add a new concept</h2>
 		<form method="post">
 		<input type="text" name="newconcept">
-		<input type="submit" value="add concept" name="add">
+		<input class="submit" type="submit" value="Add Concept" name="add">
 
 		</form>
-		
-		<?php
-			include_once('logoutbutton.php');
-		?>
-		<a href="add-exercise.php">ADD MORE EXERCISES</a>
         </div>
         <?php include_once('footer.php'); ?>
     </div>

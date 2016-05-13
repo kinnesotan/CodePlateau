@@ -59,7 +59,7 @@ if ($uploadOk == 0) {
     mysqli_query($con,"INSERT INTO file (file_name)
 									VALUES ('$filename')");
     ?>
-    <script>alert("file upload successfull")</script>
+    <script>alert("File upload successful")</script>
 <?php
 }
 
@@ -73,12 +73,12 @@ if(isset($_POST['associate']))
     echo "file".$file_id;
 	if(mysqli_query($con,"insert into file_package(language_id,exercise_id,file_id) values ($language_id,$exercise_id,$file_id)"))
     {
-        echo "Good job";
+        //echo "Good job";
     }
     else
     {
         ?>
-            <script>alert("YOUR SHIT IS WHACK");</script>
+            <script>alert("Insertion not successful");</script>
         <?php
     }
 }
@@ -103,13 +103,13 @@ if(isset($_POST['associate']))
 	<body class="cbp-spmenu-push">
     <div class="desktop-view">
         <?php include_once('header.php'); ?>
-        <div class="main">
+        <div class="main" style="text-align: center;">
        
             
             <form action="upload.php" method="post" enctype="multipart/form-data">
     Select file to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit">
+    <input class="submit"  type="file" name="fileToUpload" id="fileToUpload">
+    <input class="submit" type="submit" value="Upload Image" name="submit">
 </form>
             <form method="post">
 			<div class="select">
@@ -122,7 +122,7 @@ if(isset($_POST['associate']))
 									$language_id=$test['language_id'];
 									$language_name=$test['language_name'];
 
-									echo "<option value='".$language_id."'>$language_name</option>";
+									echo "<option value='".$language_id."'>". strtoupper($language_name). "</option>";
 								}
 							?>
 						</select>
@@ -159,13 +159,8 @@ if(isset($_POST['associate']))
 						
 					</select>
 			</div>
-                <input type="submit" name="associate" value="associate" />
+                <input class="submit" type="submit" name="associate" value="Associate" />
             </form>
-		<?php
-            
-			include_once('logoutbutton.php');
-		?>
-		<a href="add-exercise.php">ADD MORE EXERCISES</a>
         </div>
         <?php include_once('footer.php'); ?>
     </div>
