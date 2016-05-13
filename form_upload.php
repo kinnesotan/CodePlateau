@@ -1,5 +1,6 @@
 <?php
 
+
 if (isset($_REQUEST['submit'])) 
 {
 	$con=mysqli_connect("localhost", "root", "", "codesite");
@@ -52,7 +53,6 @@ else
    }
 }
 mysqli_close($con); //Close the Database Connection
-
-
+//COMMENTS SO MANY COMMENTS
 
 ?>
