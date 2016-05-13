@@ -3,7 +3,7 @@ session_start();
 include_once("includes/dbconnect.php");
 	#$result = mysqli_query($con,"SELECT language_id WHERE language = '$lang' ");
 	#while($test = mysqli_fetch_array($result))
-	$lang = "3";
+	$lang = "";
 
 ?>
 <!DOCTYPE html>
@@ -22,36 +22,36 @@ include_once("includes/dbconnect.php");
     <div class="desktop-view">
         <?php include_once('header.php'); ?>
         <div style="margin-top:10px;">
-        <h1 style="text-align: center;">C#</h1>
+        <h1 style="text-align: center;">PHP</h1>
         </div>
         <table align="center">
         <th>Exercise Name</th>
         <?php
         $result=mysqli_query($con, "select exercise.exercise_name, support-package.package_id, exercise.excercise_id from exercise inner join support-package on support-package.exercise_id=exercise.exercise_id where language_id=$lang ");
-				while($test=($result))
-				{
-					$pack=$test['support-package.package_id'];
-					echo "<tr>";
-					echo "<td><a href='userex.php?=".$pack."'>$exercise.exercise_name</a></td>";
-					echo "</tr>";
-				}
+                while($test=($result))
+                {
+                    $pack=$test['support-package.package_id'];
+                    echo "<tr>";
+                    echo "<td><a href='userex.php?=".$pack."'>$exercise.exercise_name</a></td>";
+                    echo "</tr>";
+                }
         ?>
         </table>
         </div>
         <div id="code-container" style="">
-        	<div id="code">
-				<h5 style="text-align: center;">C# is an object oriented programming language.<br>Below is usually the first thing a beginning programmer will write.</h5><br>
-        		<pre style="border:solid thin black; width:40%; margin:0 auto;">
-					// Hello.cs
-					public class Hello
-					{
-					   public static void Main()
-					   {
-					      System.Console.WriteLine("Hello, World!");
-					   }
-					}        			
-        		</pre>
-        	</div>
+            <div id="code">
+                <h5 style="text-align: center;">PHP (recursive acronym for PHP: Hypertext Preprocessor).<br>A widely-used open source general-purpose scripting language<br>that is especially suited for web development and can be embedded into HTML.</h5><br>
+                <pre style="border:solid thin black; width:40%; margin:0 auto;">
+                    &lt;!DOCTYPE html&gt;
+                    &lt;html&gt;
+                    &lt;body&gt;
+
+                    &lt;php echo "I'm Ron Burgundy?"; ?&gt;
+
+                    &lt;/body&gt;
+                    &lt;/html&gt;
+                </pre>
+            </div>
         </div>
 
         <?php include_once('footer.php'); ?>

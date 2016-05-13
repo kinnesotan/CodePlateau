@@ -19,14 +19,14 @@ include_once("includes/dbconnect.php");
         <?php include_once('header.php'); ?>
         <div class="main">
             <div class="logo-styles">
-                <div class="lan-image-1"><a href="#"><img src="images/csharp.png" width="100" height="100" alt="C# logo"></a></div>
-                <div class="lan-image-2"><a href="#"><img src="images/javascript.png" width="100" height="100" alt="JavaScript logo"></a></div>
-                <div class="lan-image-3"><a href="#"><img src="images/php.png" width="100" height="100" alt="PHP logo"></a></div>
+                <div class="lan-image-1"><a href="c-sharp.php"><img src="images/csharp.png" width="100" height="100" alt="C# logo"></a></div>
+                <div class="lan-image-2"><a href="javascript.php"><img src="images/javascript.png" width="100" height="100" alt="JavaScript logo"></a></div>
+                <div class="lan-image-3"><a href="php.php"><img src="images/php.png" width="100" height="100" alt="PHP logo"></a></div>
             </div>
             <div class="logo-styles">
-                <div class="lan-image-1"><a href="#"><img src="images/sql.png" width="100" height="100" alt="SQL logo"></a></div>
-                <div class="lan-image-2"><a href="#"><img src="images/html.png" width="100" height="100" alt="HTML logo"></a></div>
-                <div class="lan-image-3"><a href="#"><img src="images/css.png" width="100" height="100" alt="CSS logo"></a></div>
+                <div class="lan-image-1"><a href="sql.php"><img src="images/sql.png" width="100" height="100" alt="SQL logo"></a></div>
+                <div class="lan-image-2"><a href="html5.php"><img src="images/html.png" width="100" height="100" alt="HTML logo"></a></div>
+                <div class="lan-image-3"><a href="css.php"><img src="images/css.png" width="100" height="100" alt="CSS logo"></a></div>
             </div>
         </div>
         <?php
