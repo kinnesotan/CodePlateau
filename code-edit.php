@@ -8,7 +8,16 @@ if(!isset($_SESSION['user']))
 }
 
 $id = $_REQUEST['id'];
-$result = mysqli_query($con,"SELECT exercise_id, title, content, language, code, support_file FROM exercise WHERE exercise_id = $id");
+//$result = mysqli_query($con,"SELECT exercise_id, title, content, language, code, support_file FROM exercise WHERE exercise_id = $id");
+$result = mysqli_query($con,"SELECT exercise_id, title, description FROM exercise WHERE exercise_id = $id");
+$result2 = mysqli_query($con,"SELECT content, language_id FROM support_package WHERE exercise_id = $id");
+
+$row2 = mysqli_fetch_array($result2);
+$lang = $row2['language_id'];
+
+$result3 = mysqli_query($con,"SELECT * FROM language WHERE language_id = $lang");
+$row3 = mysqli_fetch_array($result3);
+$language = $row3['language_name'];
 
 if($row = mysqli_fetch_array($result, MYSQLI_NUM))
 {
@@ -32,9 +41,16 @@ if(isset($_POST['btn-post']))
 	$update_content = mysqli_real_escape_string($con,$_POST["content"]);
 	$update_code = mysqli_real_escape_string($con,$_POST["code"]);
 	
+	if(mysqli_query($con,"UPDATE support_package SET content = '$update_code'
+						  WHERE exercise_id = $id"))
+	{
+		?>
+		<script>alert('Your support package was successfully updated');</script>
+		<?php
+	}
 	if(mysqli_query($con,"UPDATE exercise SET title = '$update_title',
-						  content = '$update_content',
-						  code = '$update_code' WHERE exercise_id = $id"))
+						  description = '$update_content'
+						  WHERE exercise_id = $id"))
 	{
 		?>
 		<script>alert('Your exercise was successfully updated');</script>
@@ -67,7 +83,7 @@ if(isset($_POST['btn-post']))
 		<link rel="shortcut icon" href="images/favicon.ico">
 			
 		<script>
-			var lang = '<?php echo $row[3]; ?>';
+			var lang = '<?php echo $language; ?>';
 			var code = document.getElementById("editor");
 			editor.getValue(code);
 			
@@ -101,7 +117,7 @@ if(isset($_POST['btn-post']))
 					
 				</li>
 				<li>
-					<h1>Language: <?php echo strtoupper($row[3])?></h1>
+					<h1>Language: <?php echo strtoupper($language)?></h1>
 				</li>
 				<li>
 					<button class="submit" name="btn-post" onclick="getCode();" type="submit">Update Exercise</button>
@@ -111,7 +127,7 @@ if(isset($_POST['btn-post']))
 			<div class="codeblock">
 <div id="editor" name="code">
 <!-- PHP codeblock to display in code editor -->
-<?php echo '<pre>'. htmlspecialchars($row[4]) . '</pre>'; ?>
+<?php echo '<pre>'. htmlspecialchars($row2['content']) . '</pre>'; ?>
 </div>
 				<script src="editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 				<script>

@@ -29,9 +29,6 @@ include_once("includes/dbconnect.php");
                 <div class="lan-image-3"><a href="css.php"><img src="images/css.png" width="100" height="100" alt="CSS logo"></a></div>
             </div>
         </div>
-        <?php
-			include_once('logoutbutton.php');
-		?>
         <?php include_once('footer.php'); ?>
     </div>
 <!-- MOBILE VIEW STARTS HERE -->

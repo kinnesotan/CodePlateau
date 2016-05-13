@@ -48,6 +48,15 @@ else
 					    $langname = $test["language"];
 					    $file_name = $test["support_file"];
 					    $id = $test['exercise_id'];
+						
+						$newResult = mysqli_query($con, "SELECT * FROM support_package where exercise_id = $id");
+						$newTest = mysqli_fetch_array($newResult);
+						$langid = $newTest['language_id'];
+						
+						$resultNew = mysqli_query($con, "SELECT * FROM language where language_id = $langid");
+						$testNew = mysqli_fetch_array($resultNew);
+						$langname = $testNew['language_name'];
+						
 					    echo "<tr align='center'>";
 					    echo "<td>". $test['title']. "</td>";
 					    echo "<td>". strtoupper($langname). "</td>";

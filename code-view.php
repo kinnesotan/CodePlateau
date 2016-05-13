@@ -7,15 +7,20 @@ if(!isset($_SESSION['user']))
 	header("Location: index.php");
 }
 $id = $_REQUEST['id'];
-$result = mysqli_query($con,"SELECT exercise_id, title, content, language, code FROM exercise WHERE exercise_id = $id");
 
+$result = mysqli_query($con,"SELECT exercise_id, title, description FROM exercise WHERE exercise_id = $id");
+$result2 = mysqli_query($con,"SELECT content, language_id FROM support_package WHERE exercise_id = $id");
+
+$row2 = mysqli_fetch_array($result2);
+$lang = $row2['language_id'];
+
+$result3 = mysqli_query($con,"SELECT * FROM language WHERE language_id = $lang");
+$row3 = mysqli_fetch_array($result3);
+$language = $row3['language_name'];
 
 if($row = mysqli_fetch_array($result, MYSQLI_NUM))
 {
-	// This can be enabled to make sure SQL is running when the page starts
-	?>
-	<script>//alert("SQL ran successfully")</script>
-	<?php
+    
 }
 else
 {
@@ -44,7 +49,7 @@ if(isset($_POST['btn-post']))
 		<link rel="shortcut icon" href="images/favicon.ico">
 			
 		<script>
-			var lang = '<?php echo $row[3]; ?>';
+			var lang = '<?php echo $language; ?>';
 		</script>
 	</head>
 	<body class="cbp-spmenu-push">
@@ -71,7 +76,7 @@ if(isset($_POST['btn-post']))
 					
 				</li>
 				<li>
-					<h1>Language: <?php echo strtoupper($row[3])?></h1>
+					<h1>Language: <?php echo strtoupper($language)?></h1>
 				</li>
 				<li>
 					<button class="submit" name="btn-post" type="submit">Go back to exercises</button>
@@ -81,7 +86,7 @@ if(isset($_POST['btn-post']))
 			<div class="codeblock">
 <div id="editor" name="code">
 <!-- PHP codeblock to display in code editor -->
-<?php echo '<pre>'. htmlspecialchars($row[4]) . '</pre>'; ?>
+<?php echo '<pre>'. htmlspecialchars($row2[0]) . '</pre>'; ?>
 </div>
 				<script src="editor/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 				<script>
@@ -111,6 +116,14 @@ if(isset($_POST['btn-post']))
 				       else if (lang=="html") {
 					       editor.session.setMode("ace/mode/html");
 				       }
+					   else if (lang=="python") {
+						   editor.session.setMode("ace/mode/python");
+					   }
+					   else if (lang=="xml") {
+						   editor.session.setMode("ace/mode/xml");
+					   }
+					   
+					   
 				</script>
 			</div>
 		</form>

@@ -8,16 +8,19 @@ if(!isset($_SESSION['user']))
 }
 if(isset($_POST['btn-post']))
 {
+    
 	#DECLARE PHP VARIABLES FOR CONTENT
-	$title =$_POST['title'];
-	$content = $_POST['content'];
-	$code = $_POST['code'];
-	$language=$_POST['language'];
-	$concept=$_POST['concept'];
-	$lvl=$_POST['lvl'];
+	$author = $_SESSION['user'];
+	$title = mysqli_real_escape_string($con, $_POST['title']);
+	$content = mysqli_real_escape_string($con, $_POST['content']);
+	$code = mysqli_real_escape_string($con, $_POST['code']);
+	$lang = mysqli_real_escape_string($con, $_POST['language']);
+	$concept = $_POST['concept'];
+	$lvl = $_POST['lvl'];
 
-
-
+    $query = mysqli_query($con, "Select language_id from language where language_name = '$lang'");
+	$res = mysqli_fetch_array($query);
+	$language = $res['language_id'];
 
 	#IF NO LANGUAGE IS SELECTED, THROW ERROR
 	if($_POST["language"] == "" )
@@ -28,15 +31,37 @@ if(isset($_POST['btn-post']))
 	}
 	else
 	{
-		if(mysqli_query($con,"INSERT INTO exercise(title,description,level_id,author_id) VALUES('$title','$content','$lvl',1)"))
+		if(mysqli_query($con,"INSERT INTO exercise(title, description ,level_id, author_id) VALUES('$title','$content','$lvl','$author')"))
 		{
 			$result= mysqli_query($con, "Select * from exercise where exercise_id>0 order by exercise_id desc limit 1");
 			$row=mysqli_fetch_array($result);
-			$maxid=$row['exercise_id'];
+			$maxid = $row['exercise_id'];
 			
-			mysqli_query($con, "INSERT INTO concept_exercise(concept_id,exercise_id) values($concept,$maxid) ");
+			if(mysqli_query($con, "INSERT INTO concept_exercise(concept_id, exercise_id) VALUES($concept, $maxid) "))
+			{
+				?>
+						<script>alert('You successfully submitted your concept exercise...');</script> 
+				<?php
+			}
+			else
+			{
+				?>
+						<script>alert('There  was an error while submitting your concept exercise...');</script> 
+				<?php
+			}
 			
-			mysqli_query($con, "INSERT INTO support_package(language_id,exercise_id,content) values ($language,$maxid, '$code')");
+			if(mysqli_query($con, "INSERT INTO support_package(language_id, exercise_id ,content) values ('$language', '$maxid', '$code')"))
+			{
+				?>
+						<script>alert('You successfully submitted your support exercise...');</script> 
+				<?php
+			}
+			else
+			{
+				?>
+						<script>alert('There  was an error while submitting your support package...');</script> 
+				<?php
+			}
 			?>
 			<script>alert('Your exercise was successfully entered');</script>
 			<?php
@@ -161,8 +186,9 @@ mysqli_close($con); //Close the Database Connection
 			
 			function langMode() {
 				var mode=document.getElementById("selectlang");
+
 				if (mode.value=="php") {
-					 editor.session.setMode("ace/mode/php");
+				    editor.session.setMode("ace/mode/php");
 				}
 				else if (mode.value=="java") {
 					editor.session.setMode("ace/mode/java");
@@ -214,13 +240,13 @@ mysqli_close($con); //Close the Database Connection
 						<select id="selectlang" name="language" onchange="langMode()">
 							<option value="">Select Language</option>
 							<?php
-								$result=mysqli_query($con,"Select * from language");
+								$result=mysqli_query($con,"Select * from language ORDER by language_name");
 								while($test=mysqli_fetch_assoc($result))
 								{
-									$language_id=$test['language_id'];
+									//$language_id=$test['language_id'];
 									$language_name=$test['language_name'];
 
-									echo "<option value='".$language_id."'>$language_name</option>";
+									echo "<option value='".$language_name."'>" .strtoupper($language_name). "</option>";
 								}
 							  ?>
 						</select>

@@ -26,7 +26,7 @@ if(isset($_POST['btn-login']))
 		echo $_SESSION['admin'];
 		if($_SESSION['admin'] == 1)
 		{
-				header("Location: exercise-view.php");
+				header("Location: concept-view.php");
 		}
 		else
 		{

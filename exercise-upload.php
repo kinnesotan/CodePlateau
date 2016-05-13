@@ -22,13 +22,13 @@ include_once("includes/dbconnect.php");
                 <select id="selectlang" name="language" onchange="langMode()">
                     <option value="">Select Language</option>
                     <?php
-                        $result=mysqli_query($con,"Select * from language");
+                        $result=mysqli_query($con,"Select * from language ORDER BY language_name");
                         while($test=mysqli_fetch_assoc($result))
                         {
                             $language_id=$test['language_id'];
                             $language_name=$test['language_name'];
 
-                            echo "<option value='".$language_name."'>$language_name</option>";
+                            echo "<option value='".$language_name."'>" . strtoupper($language_name) . "</option>";
                         }
                       ?>
                 </select>
