@@ -30,7 +30,7 @@ else
 }
 if(isset($_POST['btn-post']))
 {
-	header("Location: exercise-view.php");
+	header("Location: concept-view.php");
 }
 ?>
 
@@ -79,7 +79,7 @@ if(isset($_POST['btn-post']))
 					<h1>Language: <?php echo strtoupper($language)?></h1>
 				</li>
 				<li>
-					<button class="submit" name="btn-post" type="submit">Go back to exercises</button>
+					<button class="submit" name="btn-post" type="submit">Go back to concepts</button>
 				</li>
 			</ul>
 			</div>

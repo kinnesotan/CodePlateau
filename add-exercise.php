@@ -65,7 +65,7 @@ if(isset($_POST['btn-post']))
 			?>
 			<script>alert('Your exercise was successfully entered');</script>
 			<?php
-			header("Location: exercise-view.php");
+			header("Location: concept-view.php");
 		}
 		else
 		{

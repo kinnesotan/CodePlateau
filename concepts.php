@@ -21,7 +21,13 @@ if(isset($_POST['associate']))
 	$exercise_id=$_POST['exercise'];
 	$concept_id=$_POST['concept'];
 
-	mysqli_query($con,"insert into concept_exercise(concept_id,exercise_id) values ($exercise_id,$concept_id)");
+	mysqli_query($con,"insert into concept_exercise(concept_id,exercise_id) values ($concept_id, $exercise_id)");
+}
+else
+{
+	?>
+	<script>alert("There was an error while trying to associate the Exercise and Concept");</script>
+	<?php
 }
 if(isset($_POST['add']))
 {
@@ -39,7 +45,7 @@ if(isset($_POST['add']))
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-		<title>View All Exercises | Code Plateau</title>
+		<title>Add Concepts | Code Plateau</title>
 		<link rel="stylesheet" media="(min-width: 1000px)" href="css/desktopstyles.css" />
 		<link rel="stylesheet" media="(max-width: 999px)" href="css/mobileview.css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
