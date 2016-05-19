@@ -20,21 +20,30 @@ if(isset($_POST['associate']))
 {
 	$exercise_id=$_POST['exercise'];
 	$concept_id=$_POST['concept'];
-
+	$associated = "exercise_id: $exercise_id was associated with conecpt_id: $concept_id";
+	?>
+<!--Alert For Associating Concepts-->
+<script> var associate="<?php echo $associated ?>"; 
+alert(associate);</script>
+	<?php
 	mysqli_query($con,"insert into concept_exercise(concept_id,exercise_id) values ($concept_id, $exercise_id)");
 }
-else
+/*if(isset($_POST['associate']))
 {
 	?>
 	<script>alert("There was an error while trying to associate the Exercise and Concept");</script>
 	<?php
-}
+}*/
 if(isset($_POST['add']))
 {
 	$concept=$_POST['newconcept'];
+	$associated02 = "Concept has been added";
 
 
 	mysqli_query($con,"insert into concept(concept_name) values ('$concept')");
+	?>
+	<script> var associate02="<?php echo $associated02 ?>"; alert(associate02);</script>
+<?php
 }
 ?>
 

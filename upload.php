@@ -68,12 +68,17 @@ if(isset($_POST['associate']))
 	$exercise_id=$_POST['exercise'];
 	$language_id=$_POST['language'];
     $file_id=$_POST['file'];
+    $associated = "$exercise_id, $language_id, & $file_id are now associates";
     echo "exercise".$exercise_id;
     echo "language".$language_id;
     echo "file".$file_id;
-	if(mysqli_query($con,"insert into file_package(language_id,exercise_id,file_id) values ($language_id,$exercise_id,$file_id)"))
+	if(mysqli_query($con, "insert into file_package(language_id,exercise_id,file_id) values ($language_id,$exercise_id,$file_id)"))
     {
-        //echo "Good job";
+        ?>
+        <!--Alert for associating files...-->
+		<script> var associate="<?php echo $associated ?>"; 
+		alert(associate);</script>
+		<?php
     }
     else
     {
