@@ -2,6 +2,10 @@
 session_start();
 include_once("includes/dbconnect.php");
 
+/*
+$lanQuery = mysqli_query("SELECT * FROM langauge");
+$lanRes = mysqli_fetch_array($lanQuery);
+*/
 if(!isset($_SESSION['user']))
 {
 	header("Location: index.php");
@@ -185,8 +189,9 @@ mysqli_close($con); //Close the Database Connection
 			editor.getValue(code);
 			
 			function langMode() {
-				var mode=document.getElementById("selectlang");
-
+				var mode = document.getElementById("selectlang");
+				
+				/*
 				if (mode.value=="php") {
 				    editor.session.setMode("ace/mode/php");
 				}
@@ -204,7 +209,8 @@ mysqli_close($con); //Close the Database Connection
 				}
 				else if (mode.value=="html") {
 					editor.session.setMode("ace/mode/html");
-				}	
+				}
+				*/
 			}
 			function getCode() {
 				document.getElementById('code').value = editor.getValue(code);
@@ -245,8 +251,9 @@ mysqli_close($con); //Close the Database Connection
 								{
 									//$language_id=$test['language_id'];
 									$language_name=$test['language_name'];
+									$call_language = $test['call_language'];
 
-									echo "<option value='".$language_name."'>" .strtoupper($language_name). "</option>";
+									echo "<option value='".$call_language."'>" .strtoupper($language_name). "</option>";
 								}
 							  ?>
 						</select>

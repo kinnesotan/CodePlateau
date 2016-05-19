@@ -353,3 +353,25 @@ ALTER TABLE `users`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+--NEW CHANGES FROM MATT--
+CREATE TABLE `language` (
+  `language_id` int(11) NOT NULL,
+  `language_name` varchar(25) NOT NULL,
+  `call_language` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `language`
+--
+
+INSERT INTO `language` (`language_id`, `language_name`, `call_language`) VALUES
+(1, 'php', 'editor.session.setMode("ace/mode/php");'),
+(2, 'xml', 'editor.session.setMode("ace/mode/xml");'),
+(3, 'java', 'editor.session.setMode("ace/mode/java");'),
+(4, 'csharp', 'editor.session.setMode("ace/mode/csharp");'),
+(5, 'javascript', 'editor.session.setMode("ace/mode/javascript");'),
+(6, 'css', 'editor.session.setMode("ace/mode/css");'),
+(7, 'html', 'editor.session.setMode("ace/mode/html");'),
+(8, 'python', 'editor.session.setMode("ace/mode/python");');
