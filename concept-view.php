@@ -51,7 +51,7 @@ else
 								{
 										echo "<tr align='center'>";
 										$exerciseid = $fetch['exercise_id'];
-										$exerciseQ = mysqli_query($con, "SELECT * FROM exercise WHERE exercise_id = $exerciseid");
+										$exerciseQ = mysqli_query($con, "SELECT * FROM exercise WHERE exercise_id = $exerciseid and deleted =0");
 										$exerciseR = mysqli_fetch_array($exerciseQ);
 										$exerciseName = $exerciseR['title'];
 										

@@ -14,9 +14,10 @@ if(isset($_POST['btn-post']))
 {
     
 	#DECLARE PHP VARIABLES FOR CONTENT
-	$author = $_SESSION['user'];
-	$title = mysqli_real_escape_string($con, $_POST['title']);
-	$content = mysqli_real_escape_string($con, $_POST['content']);
+	//$author = $_SESSION['user'];
+	//$title = mysqli_real_escape_string($con, $_POST['title']);
+	$exercise= $_POST['exercise'];
+	//$content = mysqli_real_escape_string($con, $_POST['content']);
 	$code = mysqli_real_escape_string($con, $_POST['code']);
 	$lang = mysqli_real_escape_string($con, $_POST['language']);
 	$concept = $_POST['concept'];
@@ -25,6 +26,8 @@ if(isset($_POST['btn-post']))
     $query = mysqli_query($con, "Select language_id from language where language_name = '$lang'");
 	$res = mysqli_fetch_array($query);
 	$language = $res['language_id'];
+
+
 
 	#IF NO LANGUAGE IS SELECTED, THROW ERROR
 	if($_POST["language"] == "" )
@@ -35,12 +38,12 @@ if(isset($_POST['btn-post']))
 	}
 	else
 	{
-		if(mysqli_query($con,"INSERT INTO exercise(title, description ,level_id, author_id) VALUES('$title','$content','$lvl','$author')"))
+		if(mysqli_query($con, "INSERT INTO support_package(language_id, exercise_id ,content) values ('$language', '$exercise', '$code')"))
 		{
-			$result= mysqli_query($con, "Select * from exercise where exercise_id>0 order by exercise_id desc limit 1");
-			$row=mysqli_fetch_array($result);
-			$maxid = $row['exercise_id'];
-			
+			//$result= mysqli_query($con, "Select * from exercise where exercise_id>0 order by exercise_id desc limit 1");
+			//$row=mysqli_fetch_array($result);
+			//$maxid = $row['exercise_id'];
+			/*
 			if(mysqli_query($con, "INSERT INTO concept_exercise(concept_id, exercise_id) VALUES($concept, $maxid) "))
 			{
 				?>
@@ -65,11 +68,11 @@ if(isset($_POST['btn-post']))
 				?>
 						<script>alert('There  was an error while submitting your support package...');</script> 
 				<?php
-			}
+			} */
 			?>
 			<script>alert('Your exercise was successfully entered');</script>
 			<?php
-			header("Location: concept-view.php");
+			//header("Location: concept-view.php");
 		}
 		else
 		{
@@ -229,18 +232,10 @@ mysqli_close($con); //Close the Database Connection
         <div class="main">
 		<!-- Select the type of language for the user to enable in the code block -->
 		<!-- Code editor starts here -->
-		<form method="post" class="exercise-form" name="exercise-form" action="add-exercise.php">
+		<form method="post" class="exercise-form" name="exercise-form" action="add-language.php">
 			<div id="exercise-text">
 			<ul>
-				<li>
-					<label for="title">Title:</label>
-					<input id="title" type="text" name="title" placeholder="Exercise title..." required />
-					<input type="hidden" name="code" id="code" value="";/>
-				</li>
-				<li>
-					<label for="content">Content:</label>
-					<textarea name="content" placeholder="Enter supplemental text here..." cols="40" rows="6" required></textarea>
-				</li>
+				
 				<li>
 					<div class="select">
 						<select id="selectlang" name="language" onchange="langMode()">
@@ -261,38 +256,22 @@ mysqli_close($con); //Close the Database Connection
 				</li>
 				<li>
 					<div class="select">
-						<select id="selectconcept" name="concept" onchange="langMode()">
-							<option value="">Select Concept</option>
+						<select id="selectexercise" name="exercise" >
+							<option value="">Select Exercise</option>
 							<?php
-							$result=mysqli_query($con,"Select * from concept");
+							$result=mysqli_query($con,"Select * from exercise");
 								while($test=mysqli_fetch_assoc($result))
 								{
-									$concept_id=$test['concept_id'];
-									$concept_name=$test['concept_name'];
+									$exercise_id=$test['exercise_id'];
+									$title=$test['title'];
 
-									echo "<option value='".$concept_id."'>$concept_name</option>";
+									echo "<option value='".$exercise_id."'>$title</option>";
 								}
 							?>
 						</select>
 					</div>
 				</li>
-				<li>
-					<div class="select">
-						<select id="selectlvl" name="lvl" onchange="langMode()">
-							<option value="">Select level</option>
-							<?php
-							$result=mysqli_query($con,"Select * from level");
-								while($test=mysqli_fetch_assoc($result))
-								{
-									$level_id=$test['level_id'];
-									$level_name=$test['level_name'];
-
-									echo "<option value='".$level_id."'>$level_name</option>";
-								}
-							?>
-						</select>
-					</div>
-				</li>
+				
 				<li>
 				<button class="submit" name="btn-post" onclick="getCode();" type="submit">Submit Exercise</button>	
 				</li>

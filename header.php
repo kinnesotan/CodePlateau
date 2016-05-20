@@ -11,6 +11,7 @@ include_once("includes/dbconnect.php");
                 <li><a href="add-exercise.php">Add Exercises</a></li>
 				<li><a href="concepts.php">Add Concepts</a></li>
 				<li><a href="upload.php">Add Files</a></li>
+                <li><a href="add-language.php">Add Language</a></li>
                 <?php
                 
                 if(!isset($_SESSION['user']))
